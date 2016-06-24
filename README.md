@@ -1,10 +1,10 @@
-# rake js:rails:routes
+# rake js:routes
 
 Generate a ES6 module that contains Rails routes.
 
 ## Description
 
-This gem provides "js:rails:routes" rake task.
+This gem provides "js:routes" rake task.
 It generates a ES6 requirable module whith exports url helper functions defined by your Rails application.
 
 Suppose there are some routes defined:
@@ -51,24 +51,24 @@ This gem uses ES6 modules.
 Write all routes to app/assets/javascripts/rails-routes.js:
 
 ```
-rake js:rails:routes
+rake js:routes
 ```
 
 Write to client/src/rails-routes.js:
 
 ```
-rake js:rails:routes path='client/src/rails-routes.js'
+rake js:routes path='client/src/rails-routes.js'
 ```
 
 Generate routes except paths start with "/rails/" or "/sidekiq/":
 
 ```
-rake js:rails:routes excludes='^/(rails|sidekiq)/'
+rake js:routes excludes='^/(rails|sidekiq)/'
 ```
 Generate routes start with "/articles/" only:
 
 ```
-rake js:rails:routes includes='^/articles/'
+rake js:routes includes='^/articles/'
 ```
 
 ## Install
@@ -85,6 +85,6 @@ gem 'js_rails_routes', group: :development
 
 ## Author
 
-[mizchi](https://github.com/mizchi) wrote "js:rake" task with referencing [mtrpcic/js-routes](https://github.com/mtrpcic/js-routes).
+[mizchi](https://github.com/mizchi) wrote "js:routes" task with referencing [mtrpcic/js-routes](https://github.com/mtrpcic/js-routes).
 
 [yuku-t](https://yuku-t.com) refactor and improve the mizchi's script and published to rubygems.
