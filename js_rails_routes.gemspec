@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors         = ['Yuku Takahashi']
   spec.email           = ['taka84u9@gmail.com']
   spec.summary         = 'Generate a ES6 module that contains Rails routes.'
-  spec.homepage        = 'https://github.com/yuku_t/js_rails_routes'
+  spec.homepage        = 'https://github.com/yuku-t/js_rails_routes'
   spec.license         = 'MIT'
   spec.files           = `git ls-files -z`.split("\x0")
   spec.require_paths   = ['lib']
