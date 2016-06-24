@@ -1,4 +1,4 @@
-# rake js:rails\_routes
+# rake js:rails:routes
 
 Generate a ES6 module that contains Rails routes.
 
