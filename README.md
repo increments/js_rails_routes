@@ -5,22 +5,22 @@ Generate a ES6 module that contains Rails routes.
 ## Description
 
 This gem provides "js:routes" rake task.
-It generates a ES6 requirable module whith exports url helper functions defined by your Rails application.
+It generates a ES6 requirable module with exports url helper functions defined by your Rails application.
 
 Suppose there are some routes defined:
 
 ```rb
 # == Route Map
 #
-#       Prefix Verb   URI Pattern                        Controller#Action
-#     articles GET    /articles(.:format)                articles#index
-#              POST   /articles(.:format)                articles#create
-#  new_article GET    /articles/new(.:format)            articles#new
-# edit_article GET    /articles/:id/edit(.:format)       articles#edit
-#      article GET    /articles/:id(.:format)            articles#show
-#              PATCH  /articles/:id(.:format)            articles#update
-#              PUT    /articles/:id(.:format)            articles#update
-#              DELETE /articles/:id(.:format)            articles#destroy
+#       Prefix Verb   URI Pattern                  Controller#Action
+#     articles GET    /articles(.:format)          articles#index
+#              POST   /articles(.:format)          articles#create
+#  new_article GET    /articles/new(.:format)      articles#new
+# edit_article GET    /articles/:id/edit(.:format) articles#edit
+#      article GET    /articles/:id(.:format)      articles#show
+#              PATCH  /articles/:id(.:format)      articles#update
+#              PUT    /articles/:id(.:format)      articles#update
+#              DELETE /articles/:id(.:format)      articles#destroy
 Rails.application.routes.draw do
   resources :articles
 end
