@@ -44,7 +44,7 @@ This gem uses ES6 modules.
 
 ## Requirement
 
-- Rails >= 3.0
+- Rails >= 3.2
 
 ## Usage
 
