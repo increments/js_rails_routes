@@ -13,7 +13,7 @@ module JSRailsRoutes
     end
 
     def generate(task, save_path)
-      lines = ["// Don't edit manually. `rake #{task}#{env}` generates this file."]
+      lines = ["// Don't edit manually. `rake #{task}` generates this file."]
       lines += routes.map do |name, path|
         handle_route(name, path) if match?(name, path)
       end.compact
@@ -39,13 +39,6 @@ module JSRailsRoutes
         .select(&:name)
         .map { |r| [r.name, r.path.spec.to_s.split('(')[0]] }
         .sort { |a, b| a[0] <=> b[0] }
-    end
-
-    def env
-      result = []
-      result << "includes='#{includes}'" if includes
-      result << "excludes='#{excludes}'" if excludes
-      result.empty? ? '' : ' ' + result.join(' ')
     end
 
     def write(save_path, string)
