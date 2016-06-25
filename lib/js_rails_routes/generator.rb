@@ -13,8 +13,8 @@ module JSRailsRoutes
       lines += routes.map do |name, path|
         handle_route(name, path) if match?(name, path)
       end.compact
-      lines += '' # End with new line
-      File.open(save_path, 'w') { |f| f.write(lines.join("\n")) }
+      lines += [''] # End with new line
+      write(save_path, lines.join("\n"))
     end
 
     private
@@ -52,6 +52,10 @@ module JSRailsRoutes
       result << "includes='#{includes}'" if includes
       result << "excludes='#{excludes}'" if excludes
       result.empty? ? '' : ' ' + result.join(' ')
+    end
+
+    def write(save_path, string)
+      File.open(save_path, 'w') { |f| f.write(string) }
     end
   end
 end
