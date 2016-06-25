@@ -1,6 +1,6 @@
 # rake js:routes
 
-[![Build Status](https://travis-ci.org/yuku-t/js_rails_routes.svg?branch=master)](https://travis-ci.org/yuku-t/js_rails_routes) [![Code Climate](https://codeclimate.com/github/yuku-t/js_rails_routes/badges/gpa.svg)](https://codeclimate.com/github/yuku-t/js_rails_routes) [![Test Coverage](https://codeclimate.com/github/yuku-t/js_rails_routes/badges/coverage.svg)](https://codeclimate.com/github/yuku-t/js_rails_routes/coverage)
+[![Gem](https://img.shields.io/gem/v/js_rails_routes.svg?maxAge=2592000)](https://rubygems.org/gems/js_rails_routes) [![Build Status](https://travis-ci.org/yuku-t/js_rails_routes.svg?branch=master)](https://travis-ci.org/yuku-t/js_rails_routes) [![Code Climate](https://codeclimate.com/github/yuku-t/js_rails_routes/badges/gpa.svg)](https://codeclimate.com/github/yuku-t/js_rails_routes) [![Test Coverage](https://codeclimate.com/github/yuku-t/js_rails_routes/badges/coverage.svg)](https://codeclimate.com/github/yuku-t/js_rails_routes/coverage) [![license](https://img.shields.io/github/license/yuku-t/js_rails_routes.svg?maxAge=2592000)](https://github.com/yuku-t/js_rails_routes/blob/master/LICENSE)
 
 Generate a ES6 module that contains Rails routes.
 
@@ -52,7 +52,7 @@ This gem uses ES6 modules.
 
 Generate routes file.
 
-```
+```bash
 rake js:routes
 ```
 
@@ -64,11 +64,11 @@ Name       | Type     | Description                             | Default
 -----------|----------|-----------------------------------------|----------------------------------------
 `includes` | `Regexp` | routes match to the regexp are included | `/.*/`
 `excludes` | `Regexp` | routes match to the regexp are excluded | `/^$/`
-`path`     | `String` | JS file path                            | app/assets/javascripts/rails-routes.js
+`path`     | `String` | JS file path                            | `"app/assets/javascripts/rails-routes.js"`
 
 You can configure via `JSRailsRoutes.configure`.
 
-```
+```rb
 # Rakefile
 JSRailsRoutes.configure |c|
   c.excludes = %r{^/(rails|sidekiq)}
@@ -82,7 +82,7 @@ Now `rake js:routes` ignores paths starting with "/rails" or "/sidekiq".
 
 You can override the coniguration via command line parameters:
 
-```
+```bash
 rake js:routes excludes='^/rails'
 ```
 
@@ -92,7 +92,7 @@ The command still ignores "/rails" but includes "/sidekiq".
 
 Your Rails Gemfile:
 
-```
+```rb
 gem 'js_rails_routes', group: :development
 ```
 
@@ -104,4 +104,4 @@ gem 'js_rails_routes', group: :development
 
 [mizchi](https://github.com/mizchi) wrote "js:routes" task with referencing [mtrpcic/js-routes](https://github.com/mtrpcic/js-routes).
 
-[yuku-t](https://yuku-t.com) refactor and improve the mizchi's script and published to rubygems.
+[yuku-t](https://yuku-t.com) refactored and improved the mizchi's script and published to [rubygems](https://rubygems.org/gems/js_rails_routes).
