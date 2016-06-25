@@ -1,11 +1,9 @@
 RSpec.describe JSRailsRoutes::Generator do
   let(:generator) do
-    described_class.new(params)
+    described_class.clone.instance
   end
 
-  let(:params) do
-    {}
-  end
+  it { expect(described_class).to include(Singleton) }
 
   describe '#generate' do
     subject do
@@ -25,9 +23,9 @@ RSpec.describe JSRailsRoutes::Generator do
       subject
     end
 
-    context 'when includes parameter is given' do
+    context 'when includes is given' do
       before do
-        params[:includes] = Regexp.new(includes)
+        generator.includes = Regexp.new(includes)
       end
 
       let(:includes) do
@@ -44,9 +42,9 @@ RSpec.describe JSRailsRoutes::Generator do
       end
     end
 
-    context 'when excludes parameter is given' do
+    context 'when excludes is given' do
       before do
-        params[:excludes] = Regexp.new(excludes)
+        generator.excludes = Regexp.new(excludes)
       end
 
       let(:excludes) do

@@ -1,10 +1,14 @@
+require 'singleton'
+
 module JSRailsRoutes
   class Generator
     COMPARE_REGEXP = /:(.*?)(\/|$)/
 
-    def initialize(includes: nil, excludes: nil)
-      @includes = includes
-      @excludes = excludes
+    include Singleton
+
+    attr_accessor :includes, :excludes
+
+    def initialize
       Rails.application.reload_routes!
     end
 
@@ -19,19 +23,9 @@ module JSRailsRoutes
 
     private
 
-    attr_reader :includes, :excludes
-
-    def includes_regexp
-      @includes_regexp ||= Regexp.new(includes)
-    end
-
-    def excludes_regexp
-      @excludes_regexp ||= Regexp.new(excludes)
-    end
-
     def match?(name, path)
-      return false if includes && includes_regexp !~ path
-      return false if excludes && excludes_regexp =~ path
+      return false if includes && includes !~ path
+      return false if excludes && excludes =~ path
       true
     end
 
