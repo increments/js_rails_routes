@@ -1,5 +1,7 @@
 # rake js:routes
 
+[![Build Status](https://travis-ci.org/yuku-t/js_rails_routes.svg?branch=master)](https://travis-ci.org/yuku-t/js_rails_routes) [![Code Climate](https://codeclimate.com/github/yuku-t/js_rails_routes/badges/gpa.svg)](https://codeclimate.com/github/yuku-t/js_rails_routes) [![Test Coverage](https://codeclimate.com/github/yuku-t/js_rails_routes/badges/coverage.svg)](https://codeclimate.com/github/yuku-t/js_rails_routes/coverage)
+
 Generate a ES6 module that contains Rails routes.
 
 ## Description

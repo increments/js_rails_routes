@@ -1,5 +1,8 @@
 $LOAD_PATH << File.expand_path('../../lib', __FILE__)
 
+require 'codeclimate-test-reporter'
+CodeClimate::TestReporter.start
+
 require 'rails/all'
 require 'js_rails_routes'
 
