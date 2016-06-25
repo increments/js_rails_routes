@@ -7,9 +7,9 @@ Generate a ES6 module that contains Rails routes.
 ## Description
 
 This gem provides "js:routes" rake task.
-It generates a ES6 requirable module with exports url helper functions defined by your Rails application.
+It generates a ES6 requirable module which exports url helper functions defined in your Rails application.
 
-Suppose a Rails app has some routes:
+Suppose the app has following routes:
 
 ```rb
 # == Route Map
@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 end
 ```
 
-This gem generates a JS file looks like this:
+then `rake js:routes` generates "app/assets/javascripts/rails-routes.js" as:
 
 ```js
 // Don't edit manually. `rake js:routes` generates this file.
@@ -64,7 +64,7 @@ Name       | Type     | Description                             | Default
 -----------|----------|-----------------------------------------|----------------------------------------
 `includes` | `Regexp` | routes match to the regexp are included | `/.*/`
 `excludes` | `Regexp` | routes match to the regexp are excluded | `/^$/`
-`path`     | `String` | JS file path                            | `"app/assets/javascripts/rails-routes.js"`
+`path`     | `String` | JS file path                            | `Rails.root.join("app", "assets", "javascripts", "rails-routes.js")`
 
 You can configure via `JSRailsRoutes.configure`.
 
@@ -72,7 +72,7 @@ You can configure via `JSRailsRoutes.configure`.
 # Rakefile
 JSRailsRoutes.configure |c|
   c.excludes = %r{^/(rails|sidekiq)}
-  c.path = 'path/to/rails-routes.js'
+  c.path = Rails.root.join('path', 'to', 'rails-routes.js')
 end
 ```
 
