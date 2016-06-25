@@ -9,6 +9,8 @@ module JSRailsRoutes
     attr_accessor :includes, :excludes, :path
 
     def initialize
+      self.includes = /.*/
+      self.excludes = /^$/
       self.path = Rails.root.join('app', 'assets', 'javascripts', 'rails-routes.js')
       Rails.application.reload_routes!
     end
@@ -25,8 +27,8 @@ module JSRailsRoutes
     private
 
     def match?(route_name, route_path)
-      return false if includes && includes !~ route_path
-      return false if excludes && excludes =~ route_path
+      return false if includes !~ route_path
+      return false if excludes =~ route_path
       true
     end
 
