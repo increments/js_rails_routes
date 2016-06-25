@@ -2,7 +2,7 @@ require 'singleton'
 
 module JSRailsRoutes
   class Generator
-    COMPARE_REGEXP = /:(.*?)(\/|$)/
+    COMPARE_REGEXP = %r{:(.*?)(/|$)}
 
     include Singleton
 
@@ -26,7 +26,7 @@ module JSRailsRoutes
 
     private
 
-    def match?(route_name, route_path)
+    def match?(_route_name, route_path)
       return false if includes !~ route_path
       return false if excludes =~ route_path
       true
@@ -39,9 +39,9 @@ module JSRailsRoutes
 
     def routes
       @routes ||= Rails.application.routes.routes
-        .select(&:name)
-        .map { |r| [r.name, r.path.spec.to_s.split('(')[0]] }
-        .sort { |a, b| a[0] <=> b[0] }
+                       .select(&:name)
+                       .map { |r| [r.name, r.path.spec.to_s.split('(')[0]] }
+                       .sort { |a, b| a[0] <=> b[0] }
     end
 
     def write(string)

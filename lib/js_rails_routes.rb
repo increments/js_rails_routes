@@ -5,7 +5,7 @@ require 'js_rails_routes/version'
 module JSRailsRoutes
   module_function
 
-  def configure(&block)
-    block.call(Generator.instance)
+  def configure
+    yield Generator.instance if block_given?
   end
 end
