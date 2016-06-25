@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
-## [0.3.0]
+## [0.3.0] - 2016-06-25
 ### Added
 - Enable to configure through Ruby interface
 
