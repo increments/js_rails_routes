@@ -6,32 +6,33 @@ module JSRailsRoutes
 
     include Singleton
 
-    attr_accessor :includes, :excludes
+    attr_accessor :includes, :excludes, :path
 
     def initialize
+      self.path = Rails.root.join('app', 'assets', 'javascripts', 'rails-routes.js')
       Rails.application.reload_routes!
     end
 
-    def generate(task, save_path)
+    def generate(task)
       lines = ["// Don't edit manually. `rake #{task}` generates this file."]
-      lines += routes.map do |name, path|
-        handle_route(name, path) if match?(name, path)
+      lines += routes.map do |route_name, route_path|
+        handle_route(route_name, route_path) if match?(route_name, route_path)
       end.compact
       lines += [''] # End with new line
-      write(save_path, lines.join("\n"))
+      write(lines.join("\n"))
     end
 
     private
 
-    def match?(name, path)
-      return false if includes && includes !~ path
-      return false if excludes && excludes =~ path
+    def match?(route_name, route_path)
+      return false if includes && includes !~ route_path
+      return false if excludes && excludes =~ route_path
       true
     end
 
-    def handle_route(name, path)
-      path.sub!(COMPARE_REGEXP, "' + params.#{$1} + '#{$2}") while path =~ COMPARE_REGEXP
-      "export function #{name}_path(params) { return '#{path}'; }"
+    def handle_route(route_name, route_path)
+      route_path.sub!(COMPARE_REGEXP, "' + params.#{$1} + '#{$2}") while route_path =~ COMPARE_REGEXP
+      "export function #{route_name}_path(params) { return '#{route_path}'; }"
     end
 
     def routes
@@ -41,8 +42,8 @@ module JSRailsRoutes
         .sort { |a, b| a[0] <=> b[0] }
     end
 
-    def write(save_path, string)
-      File.open(save_path, 'w') { |f| f.write(string) }
+    def write(string)
+      File.open(path, 'w') { |f| f.write(string) }
     end
   end
 end
