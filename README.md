@@ -75,7 +75,7 @@ You can configure via `JSRailsRoutes.configure`.
 
 ```rb
 # Rakefile
-JSRailsRoutes.configure |c|
+JSRailsRoutes.configure do |c|
   c.excludes = %r{^/(rails|sidekiq)}
   c.path = Rails.root.join('path', 'to', 'rails-routes.js')
 end
