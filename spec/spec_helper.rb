@@ -12,6 +12,8 @@ class TestApp < Rails::Application
   routes.draw do
     resources :blogs
     resources :users
+    get '/apps/foo', to: 'apps#foo'
+    get '/apps/bar/:date', to: 'apps#bar', as: :apps_bar
   end
 end
 

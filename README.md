@@ -28,8 +28,12 @@ Suppose the app has following routes:
 #              PATCH  /articles/:id(.:format)      articles#update
 #              PUT    /articles/:id(.:format)      articles#update
 #              DELETE /articles/:id(.:format)      articles#destroy
-Rails.application.routes.draw do
+#        about GET    /about(.:format)             website#about
+#      summary GET    /summary/:date(.:format)     website#summary
+Rails.applicatwion.routes.draw do
   resources :articles
+  get '/about', :to => 'website#about'
+  get '/summary/:date', :to => 'website#summary', as: :summary
 end
 ```
 
@@ -37,10 +41,12 @@ then `rake js:routes` generates "app/assets/javascripts/rails-routes.js" as:
 
 ```js
 // Don't edit manually. `rake js:routes` generates this file.
+export function about_path(params) { return '/about'; }
 export function article_path(params) { return '/articles/' + params.id + ''; }
 export function articles_path(params) { return '/articles'; }
 export function edit_article_path(params) { return '/articles/' + params.id + '/edit'; }
 export function new_article_path(params) { return '/articles/new'; }
+export function summary_path(params) { return '/summary/' + params.date + ''; }
 ```
 
 ## VS.
