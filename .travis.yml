@@ -3,3 +3,7 @@ rvm:
 - 2.3.1
 notifications:
   email: false
+script:
+- bundle exec rake spec
+after_success:
+- bundle exec codeclimate-test-reporter
