@@ -6,11 +6,13 @@ module JSRailsRoutes
 
     include Singleton
 
-    attr_accessor :includes, :excludes, :path
+    attr_accessor :include_paths, :exclude_paths, :include_names, :exclude_names, :path
 
     def initialize
-      self.includes = /.*/
-      self.excludes = /^$/
+      self.include_paths = /.*/
+      self.exclude_paths = /^$/
+      self.include_names = /.*/
+      self.exclude_names = /^$/
       self.path = Rails.root.join('app', 'assets', 'javascripts', 'rails-routes.js')
       Rails.application.reload_routes!
     end
@@ -26,9 +28,11 @@ module JSRailsRoutes
 
     private
 
-    def match?(_route_name, route_path)
-      return false if includes !~ route_path
-      return false if excludes =~ route_path
+    def match?(route_name, route_path)
+      return false if include_paths !~ route_path
+      return false if exclude_paths =~ route_path
+      return false if include_names !~ route_name
+      return false if exclude_names =~ route_name
       true
     end
 

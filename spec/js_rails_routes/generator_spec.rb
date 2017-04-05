@@ -19,32 +19,32 @@ RSpec.describe JSRailsRoutes::Generator do
       subject
     end
 
-    context 'when includes is given' do
+    context 'when include_paths is given' do
       before do
-        generator.includes = Regexp.new(includes)
+        generator.include_paths = include_paths
       end
 
-      let(:includes) do
-        '/new'
+      let(:include_paths) do
+        %r{/new}
       end
 
       it 'writes paths matching with the parameter' do
         expect(generator).to receive(:write).with(a_kind_of(String)) do |arg|
           paths = arg.split("\n")[1..-1]
           expect(paths).not_to be_empty
-          expect(paths).to all(a_string_including(includes))
+          expect(paths).to all(match(include_paths))
         end
         subject
       end
     end
 
-    context 'when excludes is given' do
+    context 'when exclude_paths is given' do
       before do
-        generator.excludes = Regexp.new(excludes)
+        generator.exclude_paths = exclude_paths
       end
 
-      let(:excludes) do
-        '/new'
+      let(:exclude_paths) do
+        %r{/new}
       end
 
       it 'writes paths not matching with the parameter' do
@@ -52,7 +52,47 @@ RSpec.describe JSRailsRoutes::Generator do
           paths = arg.split("\n")[1..-1]
           expect(paths).not_to be_empty
           paths.each do |path|
-            expect(path).to_not include(excludes)
+            expect(path).to_not match(exclude_paths)
+          end
+        end
+        subject
+      end
+    end
+
+    context 'when include_names is given' do
+      before do
+        generator.include_names = include_names
+      end
+
+      let(:include_names) do
+        /user/
+      end
+
+      it 'writes paths matching with the parameter' do
+        expect(generator).to receive(:write).with(a_kind_of(String)) do |arg|
+          paths = arg.split("\n")[1..-1]
+          expect(paths).not_to be_empty
+          expect(paths).to all(match(include_names))
+        end
+        subject
+      end
+    end
+
+    context 'when exclude_names is given' do
+      before do
+        generator.exclude_names = exclude_names
+      end
+
+      let(:exclude_names) do
+        /user/
+      end
+
+      it 'writes paths not matching with the parameter' do
+        expect(generator).to receive(:write).with(a_kind_of(String)) do |arg|
+          paths = arg.split("\n")[1..-1]
+          expect(paths).not_to be_empty
+          paths.each do |path|
+            expect(path).to_not match(exclude_names)
           end
         end
         subject

@@ -8,15 +8,14 @@ require 'js_rails_routes'
 
 class TestApp < Rails::Application
   config.root = File.expand_path('../test_app', __FILE__)
+
+  routes.draw do
+    resources :blogs
+    resources :users
+  end
 end
 
 RSpec.configure do |config|
-  config.before :all do
-    TestApp.routes.draw do
-      resources :apps
-    end
-  end
-
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end

@@ -65,18 +65,20 @@ rake js:routes
 
 JSRailsRoutes supports several parameters:
 
-Name       | Type     | Description                             | Default
------------|----------|-----------------------------------------|----------------------------------------
-`includes` | `Regexp` | routes match to the regexp are included | `/.*/`
-`excludes` | `Regexp` | routes match to the regexp are excluded | `/^$/`
-`path`     | `String` | JS file path                            | `Rails.root.join("app", "assets", "javascripts", "rails-routes.js")`
+Name            | Type     | Description                             | Default
+----------------|----------|-----------------------------------------|----------------------------------------
+`include_paths` | `Regexp` | paths match to the regexp are included  | `/.*/`
+`exclude_paths` | `Regexp` | paths match to the regexp are excluded  | `/^$/`
+`include_names` | `Regexp` | names match to the regexp are included  | `/.*/`
+`exclude_names` | `Regexp` | names match to the regexp are excluded  | `/^$/`
+`path`          | `String` | JS file path                            | `Rails.root.join("app", "assets", "javascripts", "rails-routes.js")`
 
 You can configure via `JSRailsRoutes.configure`.
 
 ```rb
 # Rakefile
 JSRailsRoutes.configure do |c|
-  c.excludes = %r{^/(rails|sidekiq)}
+  c.exclude_paths = %r{^/(rails|sidekiq)}
   c.path = Rails.root.join('path', 'to', 'rails-routes.js')
 end
 ```
@@ -88,7 +90,7 @@ Now `rake js:routes` ignores paths starting with "/rails" or "/sidekiq".
 You can override the coniguration via command line parameters:
 
 ```bash
-rake js:routes excludes='^/rails'
+rake js:routes exclude_paths='^/rails'
 ```
 
 The command still ignores "/rails" but includes "/sidekiq".
