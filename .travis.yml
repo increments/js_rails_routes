@@ -4,6 +4,7 @@ rvm:
 notifications:
   email: false
 script:
+- bundle exec rake rubocop
 - bundle exec rake spec
 after_success:
 - bundle exec codeclimate-test-reporter
