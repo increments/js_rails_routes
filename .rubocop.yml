@@ -4,7 +4,14 @@ Metrics/LineLength:
 Metrics/AbcSize:
   Max: 20
 
+Metrics/BlockLength:
+  Exclude:
+  - 'spec/**/*'
+
 Style/Documentation:
+  Enabled: false
+
+Style/SymbolArray:
   Enabled: false
 
 Style/TrailingCommaInLiteral:
