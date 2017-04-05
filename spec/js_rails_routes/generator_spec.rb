@@ -21,18 +21,18 @@ RSpec.describe JSRailsRoutes::Generator do
 
     context 'when includes is given' do
       before do
-        generator.includes = Regexp.new(includes)
+        generator.includes = includes
       end
 
       let(:includes) do
-        '/new'
+        %r{/new}
       end
 
       it 'writes paths matching with the parameter' do
         expect(generator).to receive(:write).with(a_kind_of(String)) do |arg|
           paths = arg.split("\n")[1..-1]
           expect(paths).not_to be_empty
-          expect(paths).to all(a_string_including(includes))
+          expect(paths).to all(match(includes))
         end
         subject
       end
@@ -40,11 +40,11 @@ RSpec.describe JSRailsRoutes::Generator do
 
     context 'when excludes is given' do
       before do
-        generator.excludes = Regexp.new(excludes)
+        generator.excludes = excludes
       end
 
       let(:excludes) do
-        '/new'
+        %r{/new}
       end
 
       it 'writes paths not matching with the parameter' do
@@ -52,7 +52,7 @@ RSpec.describe JSRailsRoutes::Generator do
           paths = arg.split("\n")[1..-1]
           expect(paths).not_to be_empty
           paths.each do |path|
-            expect(path).to_not include(excludes)
+            expect(path).to_not match(excludes)
           end
         end
         subject
