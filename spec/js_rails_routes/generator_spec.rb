@@ -20,8 +20,9 @@ RSpec.describe JSRailsRoutes::Generator do
           "rake #{task}",
           "'/apps/' + params.id",
           "'/apps/foo'",
-          "'/apps/bar/' + params.date",
-        ))
+          "'/apps/bar/' + params.date"
+        )
+      )
       subject
     end
 
