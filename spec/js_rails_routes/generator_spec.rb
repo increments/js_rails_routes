@@ -15,7 +15,14 @@ RSpec.describe JSRailsRoutes::Generator do
     end
 
     it 'writes a JS file' do
-      expect(generator).to receive(:write).with(a_string_including("rake #{task}"))
+      expect(generator).to receive(:write).with(
+        a_string_including(
+          "rake #{task}",
+          "'/apps/' + params.id",
+          "'/apps/foo'",
+          "'/apps/bar/' + params.date"
+        )
+      )
       subject
     end
 
