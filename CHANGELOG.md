@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
+## [Unreleased]
+### Added
+- Support additional parameters
+
 ## [0.4.0] - 2017-04-05
 ### Added
 - Add `include_names` and `exclude_names` option
