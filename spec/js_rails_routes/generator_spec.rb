@@ -30,7 +30,7 @@ RSpec.describe JSRailsRoutes::Generator do
 
       it 'writes paths matching with the parameter' do
         expect(generator).to receive(:write).with(a_kind_of(String)) do |arg|
-          paths = arg.split("\n")[1..-1]
+          paths = arg.split("\n")[(2 + described_class::PROCESS_FUNC.split("\n").size)..-1]
           expect(paths).not_to be_empty
           expect(paths).to all(match(include_paths))
         end
@@ -49,7 +49,7 @@ RSpec.describe JSRailsRoutes::Generator do
 
       it 'writes paths not matching with the parameter' do
         expect(generator).to receive(:write).with(a_kind_of(String)) do |arg|
-          paths = arg.split("\n")[1..-1]
+          paths = arg.split("\n")[(2 + described_class::PROCESS_FUNC.split("\n").size)..-1]
           expect(paths).not_to be_empty
           paths.each do |path|
             expect(path).to_not match(exclude_paths)
@@ -70,7 +70,7 @@ RSpec.describe JSRailsRoutes::Generator do
 
       it 'writes paths matching with the parameter' do
         expect(generator).to receive(:write).with(a_kind_of(String)) do |arg|
-          paths = arg.split("\n")[1..-1]
+          paths = arg.split("\n")[(2 + described_class::PROCESS_FUNC.split("\n").size)..-1]
           expect(paths).not_to be_empty
           expect(paths).to all(match(include_names))
         end
@@ -89,7 +89,7 @@ RSpec.describe JSRailsRoutes::Generator do
 
       it 'writes paths not matching with the parameter' do
         expect(generator).to receive(:write).with(a_kind_of(String)) do |arg|
-          paths = arg.split("\n")[1..-1]
+          paths = arg.split("\n")[(2 + described_class::PROCESS_FUNC.split("\n").size)..-1]
           expect(paths).not_to be_empty
           paths.each do |path|
             expect(path).to_not match(exclude_names)

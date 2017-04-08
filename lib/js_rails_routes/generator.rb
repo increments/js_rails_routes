@@ -4,6 +4,18 @@ module JSRailsRoutes
   class Generator
     COMPARE_REGEXP = %r{:(.*?)(/|$)}
 
+    PROCESS_FUNC = <<-JAVASCRIPT.freeze
+function process(route, params, keys) {
+  var query = [];
+  for (var param in params) if (params.hasOwnProperty(param)) {
+    if (keys.indexOf(param) === -1) {
+      query.push(param + "=" + encodeURIComponent(params[param]));
+    }
+  }
+  return query.length ? route + "?" + query.join("&") : route;
+}
+    JAVASCRIPT
+
     include Singleton
 
     attr_accessor :include_paths, :exclude_paths, :include_names, :exclude_names, :path
@@ -18,7 +30,7 @@ module JSRailsRoutes
     end
 
     def generate(task)
-      lines = ["// Don't edit manually. `rake #{task}` generates this file."]
+      lines = ["// Don't edit manually. `rake #{task}` generates this file.", PROCESS_FUNC]
       lines += routes.map do |route_name, route_path|
         handle_route(route_name, route_path) if match?(route_name, route_path)
       end.compact
@@ -37,8 +49,12 @@ module JSRailsRoutes
     end
 
     def handle_route(route_name, route_path)
-      route_path.sub!(COMPARE_REGEXP, "' + params.#{$1} + '#{$2}") while route_path =~ COMPARE_REGEXP
-      "export function #{route_name}_path(params) { return '#{route_path}'; }"
+      keys = []
+      while route_path =~ COMPARE_REGEXP
+        keys.push("'#{$1}'")
+        route_path.sub!(COMPARE_REGEXP, "' + params.#{$1} + '#{$2}")
+      end
+      "export function #{route_name}_path(params) { return process('#{route_path}', params, [#{keys.join(',')}]); }"
     end
 
     def routes

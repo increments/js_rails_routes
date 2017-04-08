@@ -37,10 +37,20 @@ then `rake js:routes` generates "app/assets/javascripts/rails-routes.js" as:
 
 ```js
 // Don't edit manually. `rake js:routes` generates this file.
-export function article_path(params) { return '/articles/' + params.id + ''; }
-export function articles_path(params) { return '/articles'; }
-export function edit_article_path(params) { return '/articles/' + params.id + '/edit'; }
-export function new_article_path(params) { return '/articles/new'; }
+function process(route, params, keys) {
+  var query = [];
+  for (var param in params) if (params.hasOwnProperty(param)) {
+    if (keys.indexOf(param) === -1) {
+      query.push(param + "=" + encodeURIComponent(params[param]));
+    }
+  }
+  return query.length ? route + "?" + query.join("&") : route;
+}
+
+export function article_path(params) { return process('/articles/' + params.id + '', params, ['id']); }
+export function articles_path(params) { return process('/articles', params, []); }
+export function edit_article_path(params) { return process('/articles/' + params.id + '/edit', params, ['id']); }
+export function new_article_path(params) { return process('/articles/new', params, []); }
 ```
 
 ## VS.
