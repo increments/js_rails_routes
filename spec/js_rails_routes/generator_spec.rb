@@ -6,7 +6,9 @@ RSpec.describe JSRailsRoutes::Generator do
   it { expect(described_class).to include(Singleton) }
 
   describe '#generate' do
+    let(:base_path) { File.expand_path('spec/tmp') }
     subject do
+      generator.base_path = base_path
       generator.generate(task)
     end
 
@@ -14,9 +16,22 @@ RSpec.describe JSRailsRoutes::Generator do
       'js:routes'
     end
 
-    it 'writes a JS file' do
-      expect(generator).to receive(:write).with(a_string_including("rake #{task}"))
+    it 'writes JS files' do
+      expect(generator).to receive(:write).with(
+        be_in(['Rails', 'Admin::Engine']), a_string_including("rake #{task}")
+      ).twice
       subject
+    end
+
+    context 'when actually creating files' do
+      let(:js_files) { Dir.glob(File.join(base_path, '{admin,rails}-routes.js')).map { |file| Pathname.new(file) } }
+
+      after { FileUtils.rm_f(js_files) }
+
+      it 'creates JS files' do
+        subject
+        expect(js_files).to all be_file
+      end
     end
 
     context 'when include_paths is given' do
@@ -29,11 +44,12 @@ RSpec.describe JSRailsRoutes::Generator do
       end
 
       it 'writes paths matching with the parameter' do
-        expect(generator).to receive(:write).with(a_kind_of(String)) do |arg|
-          paths = arg.split("\n")[(2 + described_class::PROCESS_FUNC.split("\n").size)..-1]
-          expect(paths).not_to be_empty
-          expect(paths).to all(match(include_paths))
-        end
+        expect(generator).to receive(:write).with(be_in(['Rails', 'Admin::Engine']), a_kind_of(String))
+          .twice do |_, arg|
+            paths = arg.split("\n")[(2 + described_class::PROCESS_FUNC.split("\n").size)..-1]
+            expect(paths).not_to be_empty
+            expect(paths).to all(match(include_paths))
+          end
         subject
       end
     end
@@ -48,13 +64,14 @@ RSpec.describe JSRailsRoutes::Generator do
       end
 
       it 'writes paths not matching with the parameter' do
-        expect(generator).to receive(:write).with(a_kind_of(String)) do |arg|
-          paths = arg.split("\n")[(2 + described_class::PROCESS_FUNC.split("\n").size)..-1]
-          expect(paths).not_to be_empty
-          paths.each do |path|
-            expect(path).to_not match(exclude_paths)
+        expect(generator).to receive(:write).with(be_in(['Rails', 'Admin::Engine']), a_kind_of(String))
+          .twice do |_, arg|
+            paths = arg.split("\n")[(2 + described_class::PROCESS_FUNC.split("\n").size)..-1]
+            expect(paths).not_to be_empty
+            paths.each do |path|
+              expect(path).to_not match(exclude_paths)
+            end
           end
-        end
         subject
       end
     end
@@ -65,15 +82,16 @@ RSpec.describe JSRailsRoutes::Generator do
       end
 
       let(:include_names) do
-        /user/
+        /user|note/
       end
 
       it 'writes paths matching with the parameter' do
-        expect(generator).to receive(:write).with(a_kind_of(String)) do |arg|
-          paths = arg.split("\n")[(2 + described_class::PROCESS_FUNC.split("\n").size)..-1]
-          expect(paths).not_to be_empty
-          expect(paths).to all(match(include_names))
-        end
+        expect(generator).to receive(:write).with(be_in(['Rails', 'Admin::Engine']), a_kind_of(String))
+          .twice do |_, arg|
+            paths = arg.split("\n")[(2 + described_class::PROCESS_FUNC.split("\n").size)..-1]
+            expect(paths).not_to be_empty
+            expect(paths).to all(match(include_names))
+          end
         subject
       end
     end
@@ -84,17 +102,44 @@ RSpec.describe JSRailsRoutes::Generator do
       end
 
       let(:exclude_names) do
-        /user/
+        /user|note/
       end
 
       it 'writes paths not matching with the parameter' do
-        expect(generator).to receive(:write).with(a_kind_of(String)) do |arg|
-          paths = arg.split("\n")[(2 + described_class::PROCESS_FUNC.split("\n").size)..-1]
-          expect(paths).not_to be_empty
-          paths.each do |path|
-            expect(path).to_not match(exclude_names)
+        expect(generator).to receive(:write).with(be_in(['Rails', 'Admin::Engine']), a_kind_of(String))
+          .twice do |_, arg|
+            paths = arg.split("\n")[(2 + described_class::PROCESS_FUNC.split("\n").size)..-1]
+            expect(paths).not_to be_empty
+            paths.each do |path|
+              expect(path).to_not match(exclude_names)
+            end
           end
-        end
+        subject
+      end
+    end
+
+    context 'when exclude_engines is given' do
+      before do
+        generator.exclude_engines = exclude_engines
+      end
+
+      let(:exclude_engines) do
+        /^admin/
+      end
+
+      let(:excluded_routes) do
+        /note|photo/
+      end
+
+      it 'writes paths not matching with the parameter' do
+        expect(generator).to receive(:write).with(be_in(['Rails', 'Admin::Engine']), a_kind_of(String))
+          .once do |_, arg|
+            paths = arg.split("\n")[(2 + described_class::PROCESS_FUNC.split("\n").size)..-1]
+            expect(paths).not_to be_empty
+            paths.each do |path|
+              expect(path).to_not match(excluded_routes)
+            end
+          end
         subject
       end
     end

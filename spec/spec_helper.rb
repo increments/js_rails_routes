@@ -15,6 +15,15 @@ class TestApp < Rails::Application
   end
 end
 
+module Admin
+  class Engine < ::Rails::Engine
+    routes.draw do
+      resources :notes
+      resources :photos
+    end
+  end
+end
+
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
