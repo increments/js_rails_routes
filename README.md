@@ -1,10 +1,10 @@
 # rake js:routes
 
 [![Gem](https://img.shields.io/gem/v/js_rails_routes.svg?maxAge=2592000)](https://rubygems.org/gems/js_rails_routes)
-[![Build Status](https://travis-ci.org/yuku-t/js_rails_routes.svg?branch=master)](https://travis-ci.org/yuku-t/js_rails_routes)
-[![Code Climate](https://codeclimate.com/github/yuku-t/js_rails_routes/badges/gpa.svg)](https://codeclimate.com/github/yuku-t/js_rails_routes)
-[![Test Coverage](https://codeclimate.com/github/yuku-t/js_rails_routes/badges/coverage.svg)](https://codeclimate.com/github/yuku-t/js_rails_routes/coverage)
-[![license](https://img.shields.io/github/license/yuku-t/js_rails_routes.svg?maxAge=2592000)](https://github.com/yuku-t/js_rails_routes/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/yuku-t/js_rails_routes.svg?branch=master)](https://travis-ci.org/yuku/js_rails_routes)
+[![Code Climate](https://codeclimate.com/github/yuku-t/js_rails_routes/badges/gpa.svg)](https://codeclimate.com/github/yuku/js_rails_routes)
+[![Test Coverage](https://codeclimate.com/github/yuku-t/js_rails_routes/badges/coverage.svg)](https://codeclimate.com/github/yuku/js_rails_routes/coverage)
+[![license](https://img.shields.io/github/license/yuku-t/js_rails_routes.svg?maxAge=2592000)](https://github.com/yuku/js_rails_routes/blob/master/LICENSE)
 [![Analytics](https://ga-beacon.appspot.com/UA-4932407-14/js_rails_routes/readme)](https://github.com/igrigorik/ga-beacon)
 
 Generate a ES6 module that contains Rails routes.
@@ -75,13 +75,14 @@ rake js:routes
 
 JSRailsRoutes supports several parameters:
 
-Name            | Type     | Description                             | Default
-----------------|----------|-----------------------------------------|----------------------------------------
-`include_paths` | `Regexp` | paths match to the regexp are included  | `/.*/`
-`exclude_paths` | `Regexp` | paths match to the regexp are excluded  | `/^$/`
-`include_names` | `Regexp` | names match to the regexp are included  | `/.*/`
-`exclude_names` | `Regexp` | names match to the regexp are excluded  | `/^$/`
-`path`          | `String` | JS file path                            | `Rails.root.join("app", "assets", "javascripts", "rails-routes.js")`
+Name              | Type     | Description                                    | Default
+------------------|----------|------------------------------------------------|----------------------------------------
+`include_paths`   | `Regexp` | Paths match to the regexp are included         | `/.*/`
+`exclude_paths`   | `Regexp` | Paths match to the regexp are excluded         | `/^$/`
+`include_names`   | `Regexp` | Names match to the regexp are included         | `/.*/`
+`exclude_names`   | `Regexp` | Names match to the regexp are excluded         | `/^$/`
+`exclude_engines` | `Regexp` | Rails engines match to the regexp are excluded | `/^$/`
+`output_dir`      | `String` | Output JS file into the specified directory    | `Rails.root.join("app", "assets", "javascripts")`
 
 You can configure via `JSRailsRoutes.configure`.
 
@@ -89,7 +90,7 @@ You can configure via `JSRailsRoutes.configure`.
 # Rakefile
 JSRailsRoutes.configure do |c|
   c.exclude_paths = %r{^/(rails|sidekiq)}
-  c.path = Rails.root.join('path', 'to', 'rails-routes.js')
+  c.output_dir = Rails.root.join('client/javascripts')
 end
 ```
 
