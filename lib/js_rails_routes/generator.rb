@@ -4,21 +4,21 @@ module JSRailsRoutes
   class Generator
     COMPARE_REGEXP = %r{:(.*?)(/|$)}
 
-    PROCESS_FUNC = <<-JAVASCRIPT.freeze
-function process(route, params, keys) {
-  var query = [];
-  for (var param in params) if (params.hasOwnProperty(param)) {
-    if (keys.indexOf(param) === -1) {
-      query.push(param + "=" + encodeURIComponent(params[param]));
-    }
-  }
-  return query.length ? route + "?" + query.join("&") : route;
-}
+    PROCESS_FUNC = <<-JAVASCRIPT.strip_heredoc.freeze
+      function process(route, params, keys) {
+        var query = [];
+        for (var param in params) if (params.hasOwnProperty(param)) {
+          if (keys.indexOf(param) === -1) {
+            query.push(param + "=" + encodeURIComponent(params[param]));
+          }
+        }
+        return query.length ? route + "?" + query.join("&") : route;
+      }
     JAVASCRIPT
 
     include Singleton
 
-    attr_accessor :include_paths, :exclude_paths, :include_names, :exclude_names, :exclude_engines, :base_path
+    attr_accessor :include_paths, :exclude_paths, :include_names, :exclude_names, :exclude_engines, :output_dir
 
     def initialize
       self.include_paths   = /.*/
@@ -27,7 +27,7 @@ function process(route, params, keys) {
       self.exclude_names   = /^$/
       self.exclude_engines = /^$/
 
-      self.base_path = Rails.root.join('app', 'assets', 'javascripts')
+      self.output_dir = Rails.root.join('app', 'assets', 'javascripts')
       Rails.application.reload_routes!
     end
 
@@ -56,31 +56,37 @@ function process(route, params, keys) {
     def handle_route(route_name, route_path)
       keys = []
       while route_path =~ COMPARE_REGEXP
-        keys.push("'#{$1}'")
-        route_path.sub!(COMPARE_REGEXP, "' + params.#{$1} + '#{$2}")
+        keys.push("'#{Regexp.last_match(1)}'")
+        route_path.sub!(COMPARE_REGEXP, "' + params.#{Regexp.last_match(1)} + '#{Regexp.last_match(2)}")
       end
       "export function #{route_name}_path(params) { return process('#{route_path}', params, [#{keys.join(',')}]); }"
     end
 
     def routes_with_engines
-      @routes_with_engines ||=
-        Rails::Engine.subclasses
-                     .reject { |klass| klass.to_s.downcase =~ exclude_engines }
-                     .map { |engine| [engine.to_s, make_routes(engine.routes.routes)] }
-                     .reject { |_, routes| routes.empty? } +
-        [['Rails', make_routes(Rails.application.routes.routes)]]
+      @routes_with_engines ||= [default_routes] + subengine_routes
     end
 
     def make_routes(routes)
       routes
         .select(&:name)
         .map { |r| [r.name, r.path.spec.to_s.split('(')[0]] }
-        .sort { |a, b| a[0] <=> b[0] }
+        .sort_by(&:first)
     end
 
     def write(rails_engine_name, string)
-      file_name = File.join(base_path, "#{rails_engine_name.gsub('::Engine', '').downcase}-routes.js")
+      file_name = File.join(output_dir, "#{rails_engine_name.gsub('::Engine', '').downcase}-routes.js")
       File.write(file_name, string)
+    end
+
+    def subengine_routes
+      Rails::Engine.subclasses
+                   .reject { |klass| klass.to_s.downcase =~ exclude_engines }
+                   .map { |engine| [engine.to_s, make_routes(engine.routes.routes)] }
+                   .reject { |_, routes| routes.empty? }
+    end
+
+    def default_routes
+      ['Rails', make_routes(Rails.application.routes.routes)]
     end
   end
 end
