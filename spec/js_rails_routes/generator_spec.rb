@@ -6,9 +6,9 @@ RSpec.describe JSRailsRoutes::Generator do
   it { expect(described_class).to include(Singleton) }
 
   describe '#generate' do
-    let(:base_path) { File.expand_path('spec/tmp') }
+    let(:output_dir) { File.expand_path('spec/tmp') }
     subject do
-      generator.base_path = base_path
+      generator.output_dir = output_dir
       generator.generate(task)
     end
 
@@ -24,7 +24,7 @@ RSpec.describe JSRailsRoutes::Generator do
     end
 
     context 'when actually creating files' do
-      let(:js_files) { Dir.glob(File.join(base_path, '{admin,rails}-routes.js')).map { |file| Pathname.new(file) } }
+      let(:js_files) { Dir.glob(File.join(output_dir, '{admin,rails}-routes.js')).map { |file| Pathname.new(file) } }
 
       after { FileUtils.rm_f(js_files) }
 

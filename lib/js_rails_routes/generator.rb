@@ -18,7 +18,7 @@ function process(route, params, keys) {
 
     include Singleton
 
-    attr_accessor :include_paths, :exclude_paths, :include_names, :exclude_names, :exclude_engines, :base_path
+    attr_accessor :include_paths, :exclude_paths, :include_names, :exclude_names, :exclude_engines, :output_dir
 
     def initialize
       self.include_paths   = /.*/
@@ -27,7 +27,7 @@ function process(route, params, keys) {
       self.exclude_names   = /^$/
       self.exclude_engines = /^$/
 
-      self.base_path = Rails.root.join('app', 'assets', 'javascripts')
+      self.output_dir = Rails.root.join('app', 'assets', 'javascripts')
       Rails.application.reload_routes!
     end
 
@@ -79,7 +79,7 @@ function process(route, params, keys) {
     end
 
     def write(rails_engine_name, string)
-      file_name = File.join(base_path, "#{rails_engine_name.gsub('::Engine', '').downcase}-routes.js")
+      file_name = File.join(output_dir, "#{rails_engine_name.gsub('::Engine', '').downcase}-routes.js")
       File.write(file_name, string)
     end
   end
