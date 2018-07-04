@@ -17,9 +17,9 @@ RSpec.describe JSRailsRoutes::Generator do
     end
 
     it 'writes JS files' do
-      expect(generator).to receive(:write).with(
-        be_in(['Rails', 'Admin::Engine']), a_string_including("rake #{task}")
-      ).twice
+      expect(generator).to receive(:write)
+        .with(be_in(['Rails', 'Admin::Engine']), a_string_including("rake #{task}"))
+        .twice
       subject
     end
 
@@ -44,7 +44,8 @@ RSpec.describe JSRailsRoutes::Generator do
       end
 
       it 'writes paths matching with the parameter' do
-        expect(generator).to receive(:write).with(be_in(['Rails', 'Admin::Engine']), a_kind_of(String))
+        expect(generator).to receive(:write)
+          .with(be_in(['Rails', 'Admin::Engine']), a_kind_of(String))
           .twice do |_, arg|
             paths = arg.split("\n")[(2 + described_class::PROCESS_FUNC.split("\n").size)..-1]
             expect(paths).not_to be_empty
@@ -64,7 +65,8 @@ RSpec.describe JSRailsRoutes::Generator do
       end
 
       it 'writes paths not matching with the parameter' do
-        expect(generator).to receive(:write).with(be_in(['Rails', 'Admin::Engine']), a_kind_of(String))
+        expect(generator).to receive(:write)
+          .with(be_in(['Rails', 'Admin::Engine']), a_kind_of(String))
           .twice do |_, arg|
             paths = arg.split("\n")[(2 + described_class::PROCESS_FUNC.split("\n").size)..-1]
             expect(paths).not_to be_empty
@@ -86,7 +88,8 @@ RSpec.describe JSRailsRoutes::Generator do
       end
 
       it 'writes paths matching with the parameter' do
-        expect(generator).to receive(:write).with(be_in(['Rails', 'Admin::Engine']), a_kind_of(String))
+        expect(generator).to receive(:write)
+          .with(be_in(['Rails', 'Admin::Engine']), a_kind_of(String))
           .twice do |_, arg|
             paths = arg.split("\n")[(2 + described_class::PROCESS_FUNC.split("\n").size)..-1]
             expect(paths).not_to be_empty
@@ -106,7 +109,8 @@ RSpec.describe JSRailsRoutes::Generator do
       end
 
       it 'writes paths not matching with the parameter' do
-        expect(generator).to receive(:write).with(be_in(['Rails', 'Admin::Engine']), a_kind_of(String))
+        expect(generator).to receive(:write)
+          .with(be_in(['Rails', 'Admin::Engine']), a_kind_of(String))
           .twice do |_, arg|
             paths = arg.split("\n")[(2 + described_class::PROCESS_FUNC.split("\n").size)..-1]
             expect(paths).not_to be_empty
@@ -132,7 +136,8 @@ RSpec.describe JSRailsRoutes::Generator do
       end
 
       it 'writes paths not matching with the parameter' do
-        expect(generator).to receive(:write).with(be_in(['Rails', 'Admin::Engine']), a_kind_of(String))
+        expect(generator).to receive(:write)
+          .with(be_in(['Rails', 'Admin::Engine']), a_kind_of(String))
           .once do |_, arg|
             paths = arg.split("\n")[(2 + described_class::PROCESS_FUNC.split("\n").size)..-1]
             expect(paths).not_to be_empty

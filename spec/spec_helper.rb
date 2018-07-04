@@ -1,4 +1,4 @@
-$LOAD_PATH << File.expand_path('../../lib', __FILE__)
+$LOAD_PATH << File.expand_path('../lib', __dir__)
 
 require 'simplecov'
 SimpleCov.start
@@ -7,7 +7,7 @@ require 'rails/all'
 require 'js_rails_routes'
 
 class TestApp < Rails::Application
-  config.root = File.expand_path('../test_app', __FILE__)
+  config.root = File.expand_path('test_app', __dir__)
 
   routes.draw do
     resources :blogs
