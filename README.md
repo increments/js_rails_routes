@@ -75,14 +75,15 @@ rake js:routes
 
 JSRailsRoutes supports several parameters:
 
-Name              | Type     | Description                                    | Default
-------------------|----------|------------------------------------------------|----------------------------------------
-`include_paths`   | `Regexp` | Paths match to the regexp are included         | `/.*/`
-`exclude_paths`   | `Regexp` | Paths match to the regexp are excluded         | `/^$/`
-`include_names`   | `Regexp` | Names match to the regexp are included         | `/.*/`
-`exclude_names`   | `Regexp` | Names match to the regexp are excluded         | `/^$/`
-`exclude_engines` | `Regexp` | Rails engines match to the regexp are excluded | `/^$/`
-`output_dir`      | `String` | Output JS file into the specified directory    | `Rails.root.join("app", "assets", "javascripts")`
+Name              | Type      | Description                                                                           | Default
+------------------|-----------|---------------------------------------------------------------------------------------|----------------------------------------
+`include_paths`   | `Regexp`  | Paths match to the regexp are included                                                | `/.*/`
+`exclude_paths`   | `Regexp`  | Paths match to the regexp are excluded                                                | `/^$/`
+`include_names`   | `Regexp`  | Names match to the regexp are included                                                | `/.*/`
+`exclude_names`   | `Regexp`  | Names match to the regexp are excluded                                                | `/^$/`
+`exclude_engines` | `Regexp`  | Rails engines match to the regexp are excluded                                        | `/^$/`
+`output_dir`      | `String`  | Output JS file into the specified directory                                           | `Rails.root.join("app", "assets", "javascripts")`
+`camelize`        | `Symbol`  | Output JS file with chosen camelcase type it also avaliable for `:lower` and `:upper` | `nil`
 
 You can configure via `JSRailsRoutes.configure`.
 

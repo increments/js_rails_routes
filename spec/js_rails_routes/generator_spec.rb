@@ -150,5 +150,50 @@ RSpec.describe JSRailsRoutes::Generator do
         subject
       end
     end
+
+    shared_examples_for 'writes paths that matches expected routes' do
+      it do
+        expect(generator).to receive(:write)
+          .with(be_in(['Rails', 'Admin::Engine']), a_kind_of(String))
+          .twice do |_, arg|
+            paths = arg.split("\n")[(2 + described_class::PROCESS_FUNC.split("\n").size)..-1]
+            expect(paths).not_to be_empty
+            expect(paths).to include(match(expected_routes))
+          end
+        subject
+      end
+    end
+
+    context 'when camelize is nil' do
+      let(:expected_routes) do
+        /blog_path|note_path/
+      end
+
+      it_behaves_like 'writes paths that matches expected routes'
+    end
+
+    context 'when camelize is :lower' do
+      before do
+        generator.camelize = :lower
+      end
+
+      let(:expected_routes) do
+        /blogPath|notePath/
+      end
+
+      it_behaves_like 'writes paths that matches expected routes'
+    end
+
+    context 'when camelize is :upper' do
+      before do
+        generator.camelize = :upper
+      end
+
+      let(:expected_routes) do
+        /BlogPath|NotePath/
+      end
+
+      it_behaves_like 'writes paths that matches expected routes'
+    end
   end
 end

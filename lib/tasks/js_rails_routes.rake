@@ -9,6 +9,7 @@ namespace :js do
     generator.include_names = Regexp.new(ENV['include_names']) if ENV['include_names']
     generator.exclude_names = Regexp.new(ENV['exclude_names']) if ENV['exclude_names']
     generator.output_dir = ENV['output_dir'] if ENV['output_dir']
+    generator.camelize = ENV['camelize']&.to_sym if ENV['camelize']
     generator.generate(task)
     puts "Routes saved into #{generator.output_dir}."
   end

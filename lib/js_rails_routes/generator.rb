@@ -20,7 +20,13 @@ module JSRailsRoutes
 
     include Singleton
 
-    attr_accessor :include_paths, :exclude_paths, :include_names, :exclude_names, :exclude_engines, :output_dir
+    attr_accessor :include_paths,
+                  :exclude_paths,
+                  :include_names,
+                  :exclude_names,
+                  :exclude_engines,
+                  :output_dir,
+                  :camelize
 
     def initialize
       self.include_paths   = /.*/
@@ -28,6 +34,7 @@ module JSRailsRoutes
       self.include_names   = /.*/
       self.exclude_names   = /^$/
       self.exclude_engines = /^$/
+      self.camelize = nil
 
       self.output_dir = Rails.root.join('app', 'assets', 'javascripts')
       Rails.application.reload_routes!
@@ -61,11 +68,18 @@ module JSRailsRoutes
         keys.push("'#{Regexp.last_match(1)}'")
         route_path.sub!(COMPARE_REGEXP, "' + params.#{Regexp.last_match(1)} + '#{Regexp.last_match(2)}")
       end
-      "export function #{route_name}_path(params) { return process('#{route_path}', params, [#{keys.join(',')}]); }"
+
+      function_name = make_function_name(route_name)
+      "export function #{function_name}(params) { return process('#{route_path}', params, [#{keys.join(',')}]); }"
     end
 
     def routes_with_engines
       @routes_with_engines ||= [default_routes] + subengine_routes
+    end
+
+    def make_function_name(route_name)
+      url_helper_name = route_name + '_path'
+      camelize.nil? ? url_helper_name : url_helper_name.camelize(camelize)
     end
 
     def make_routes(routes)
