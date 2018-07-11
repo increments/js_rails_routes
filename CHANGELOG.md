@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
+## [Unreleased]
+### Changed
+- Drop supporting legacy Ruby versions
+
 ## [0.6.0] - 2018-07-04
 ### Added
 - Support Rails engine
@@ -42,6 +46,7 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ### Added
 - Implement "js:rails:routes" task
 
+[Unreleased]: https://github.com/yuku-t/js_rails_routes/compare/v0.6.0...HEAD
 [0.6.0]: https://github.com/yuku-t/js_rails_routes/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/yuku-t/js_rails_routes/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/yuku-t/js_rails_routes/compare/v0.3.0...v0.4.0
