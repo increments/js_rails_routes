@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe JSRailsRoutes do
   describe '.configure' do
     it 'yields with Generator instance' do

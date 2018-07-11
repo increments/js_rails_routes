@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 desc 'Generate a ES6 module that contains Rails routes'
 namespace :js do
   task routes: :environment do |task|
