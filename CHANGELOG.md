@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [Unreleased]
+### Added
+- Support `camelize` option
+
 ### Changed
 - Drop supporting legacy Ruby versions
 
