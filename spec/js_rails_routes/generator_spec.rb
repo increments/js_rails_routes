@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe JSRailsRoutes::Generator do
   let(:generator) do
     described_class.clone.instance
