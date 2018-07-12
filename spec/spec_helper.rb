@@ -8,23 +8,7 @@ SimpleCov.start
 require 'rails/all'
 require 'js_rails_routes'
 
-class TestApp < Rails::Application
-  config.root = File.expand_path('test_app', __dir__)
-
-  routes.draw do
-    resources :blogs
-    resources :users
-  end
-end
-
-module Admin
-  class Engine < ::Rails::Engine
-    routes.draw do
-      resources :notes
-      resources :photos
-    end
-  end
-end
+Dir[File.expand_path('support/**/*.rb', __dir__)].each { |f| require f }
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
