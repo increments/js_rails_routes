@@ -10,3 +10,7 @@ Metrics/BlockLength:
 
 Style/Documentation:
   Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  Exclude:
+  - 'spec/**/*'
