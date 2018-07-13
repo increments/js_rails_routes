@@ -1,108 +1,40 @@
 # frozen_string_literal: true
 
-require 'singleton'
+require 'js_rails_routes/route_set'
+require 'js_rails_routes/builder'
 
 module JSRailsRoutes
   class Generator
-    COMPARE_REGEXP = %r{:(.*?)(/|$)}
-
-    PROCESS_FUNC = <<-JAVASCRIPT.strip_heredoc.freeze
-      function process(route, params, keys) {
-        var query = [];
-        for (var param in params) if (params.hasOwnProperty(param)) {
-          if (keys.indexOf(param) === -1) {
-            query.push(param + "=" + encodeURIComponent(params[param]));
-          }
-        }
-        return query.length ? route + "?" + query.join("&") : route;
-      }
-    JAVASCRIPT
-
-    include Singleton
-
-    attr_accessor :include_paths,
-                  :exclude_paths,
-                  :include_names,
-                  :exclude_names,
-                  :exclude_engines,
-                  :output_dir,
-                  :camelize
-
-    def initialize
-      self.include_paths   = /.*/
-      self.exclude_paths   = /^$/
-      self.include_names   = /.*/
-      self.exclude_names   = /^$/
-      self.exclude_engines = /^$/
-      self.camelize = nil
-
-      self.output_dir = Rails.root.join('app', 'assets', 'javascripts')
-      Rails.application.reload_routes!
+    # @param builder [JSRailsRoutes::Builder]
+    # @param writable [#write]
+    def initialize(builder, writable: File)
+      @builder = builder
+      @writable = writable
     end
 
+    # @param task [String]
+    # @return [Hash{String => String}]
     def generate(task)
-      routes_with_engines.each do |rails_engine_name, routes|
-        lines = ["// Don't edit manually. `rake #{task}` generates this file.", PROCESS_FUNC]
-        lines += routes.map do |route_name, route_path|
-          handle_route(route_name, route_path) if match?(route_name, route_path)
-        end.compact
-
-        lines += [''] # End with new line
-        write(rails_engine_name, lines.join("\n"))
+      builder.build.each do |name, body|
+        file_name = File.join(config.output_dir, "#{convert(name)}-routes.js")
+        file_body = "// Don't edit manually. `rake #{task}` generates this file.\n#{body}"
+        writable.write(file_name, file_body)
       end
     end
 
     private
 
-    def match?(route_name, route_path)
-      return false if include_paths !~ route_path
-      return false if exclude_paths =~ route_path
-      return false if include_names !~ route_name
-      return false if exclude_names =~ route_name
-      true
+    attr_reader :writable, :builder
+
+    # @return [JSRailsRoutes::Configuration]
+    def config
+      JSRailsRoutes.config
     end
 
-    def handle_route(route_name, route_path)
-      keys = []
-      while route_path =~ COMPARE_REGEXP
-        keys.push("'#{Regexp.last_match(1)}'")
-        route_path.sub!(COMPARE_REGEXP, "' + params.#{Regexp.last_match(1)} + '#{Regexp.last_match(2)}")
-      end
-
-      function_name = make_function_name(route_name)
-      "export function #{function_name}(params) { return process('#{route_path}', params, [#{keys.join(',')}]); }"
-    end
-
-    def routes_with_engines
-      @routes_with_engines ||= [default_routes] + subengine_routes
-    end
-
-    def make_function_name(route_name)
-      url_helper_name = route_name + '_path'
-      camelize.nil? ? url_helper_name : url_helper_name.camelize(camelize)
-    end
-
-    def make_routes(routes)
-      routes
-        .select(&:name)
-        .map { |r| [r.name, r.path.spec.to_s.split('(')[0]] }
-        .sort_by(&:first)
-    end
-
-    def write(rails_engine_name, string)
-      file_name = File.join(output_dir, "#{rails_engine_name.gsub('::Engine', '').downcase}-routes.js")
-      File.write(file_name, string)
-    end
-
-    def subengine_routes
-      Rails::Engine.subclasses
-                   .reject { |klass| klass.to_s.downcase =~ exclude_engines }
-                   .map { |engine| [engine.to_s, make_routes(engine.routes.routes)] }
-                   .reject { |_, routes| routes.empty? }
-    end
-
-    def default_routes
-      ['Rails', make_routes(Rails.application.routes.routes)]
+    # @param engine_name [String]
+    # @return [String]
+    def convert(engine_name)
+      engine_name.gsub('::Engine', '').underscore.tr('/', '-')
     end
   end
 end
