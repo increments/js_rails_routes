@@ -1,10 +1,10 @@
 # rake js:routes
 
 [![Gem](https://img.shields.io/gem/v/js_rails_routes.svg?maxAge=2592000)](https://rubygems.org/gems/js_rails_routes)
-[![Build Status](https://travis-ci.org/yuku-t/js_rails_routes.svg?branch=master)](https://travis-ci.org/yuku/js_rails_routes)
-[![Code Climate](https://codeclimate.com/github/yuku-t/js_rails_routes/badges/gpa.svg)](https://codeclimate.com/github/yuku/js_rails_routes)
-[![Test Coverage](https://codeclimate.com/github/yuku-t/js_rails_routes/badges/coverage.svg)](https://codeclimate.com/github/yuku/js_rails_routes/coverage)
-[![license](https://img.shields.io/github/license/yuku-t/js_rails_routes.svg?maxAge=2592000)](https://github.com/yuku/js_rails_routes/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/yuku/js_rails_routes.svg?branch=master)](https://travis-ci.org/yuku/js_rails_routes)
+[![Code Climate](https://codeclimate.com/github/yuku/js_rails_routes/badges/gpa.svg)](https://codeclimate.com/github/yuku/js_rails_routes)
+[![Test Coverage](https://codeclimate.com/github/yuku/js_rails_routes/badges/coverage.svg)](https://codeclimate.com/github/yuku/js_rails_routes/coverage)
+[![license](https://img.shields.io/github/license/yuku/js_rails_routes.svg?maxAge=2592000)](https://github.com/yuku/js_rails_routes/blob/master/LICENSE)
 [![Analytics](https://ga-beacon.appspot.com/UA-4932407-14/js_rails_routes/readme)](https://github.com/igrigorik/ga-beacon)
 
 Generate a ES6 module that contains Rails routes.
