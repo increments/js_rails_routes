@@ -1,3 +1,6 @@
+require:
+  - rubocop-rspec
+
 AllCops:
   TargetRubyVersion: 2.3
 
@@ -14,3 +17,29 @@ Style/Documentation:
 Layout/MultilineMethodCallIndentation:
   Exclude:
   - 'spec/**/*'
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/NamedSubject:
+  Enabled: false
+
+RSpec/VerifiedDoubles:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 4
+
+RSpec/ContextWording:
+  Prefixes:
+    - when
+    - with
+    - without
+    - if
+    - and
+
+RSpec/FilePath:
+  Enabled: false

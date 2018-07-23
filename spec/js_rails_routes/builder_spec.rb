@@ -31,7 +31,7 @@ RSpec.describe JSRailsRoutes::Builder do
     subject { builder.build }
 
     it 'returns a hash between engine name and its content' do
-      should match(rails_route_set.name => body, engine_route_set.name => body)
+      is_expected.to match(rails_route_set.name => body, engine_route_set.name => body)
       expect(language).to have_received(:handle_route_set).twice
     end
   end

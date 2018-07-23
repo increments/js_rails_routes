@@ -20,7 +20,7 @@ RSpec.describe JSRailsRoutes::RouteSet do
 
     it 'returns an array of matching route sets' do
       # See spec/support/test_app.rb
-      should match [
+      is_expected.to match [
         be_a(described_class).and(have_attributes(name: 'Rails')).and(be_match),
         be_a(described_class).and(have_attributes(name: 'Admin::Engine')).and(be_match)
       ]
@@ -29,12 +29,14 @@ RSpec.describe JSRailsRoutes::RouteSet do
 
   describe '#name' do
     subject { route_set.name }
-    it { should eq name }
+
+    it { is_expected.to eq name }
   end
 
   describe '#routes' do
     subject { route_set.routes }
-    it { should all be_a(JSRailsRoutes::Route).and(be_match) }
+
+    it { is_expected.to all be_a(JSRailsRoutes::Route).and(be_match) }
 
     context 'when some routes are excluded' do
       before do
@@ -44,15 +46,16 @@ RSpec.describe JSRailsRoutes::RouteSet do
       end
 
       it "doesn't include the excluded route" do
-        should include be_a(JSRailsRoutes::Route).and(have_attributes(name: /articles/))
-        should_not include be_a(JSRailsRoutes::Route).and(have_attributes(name: /users/))
+        is_expected.to include be_a(JSRailsRoutes::Route).and(have_attributes(name: /articles/))
+        is_expected.not_to include be_a(JSRailsRoutes::Route).and(have_attributes(name: /users/))
       end
     end
   end
 
   describe '#match?' do
     subject { route_set.match? }
-    it { should be true }
+
+    it { is_expected.to be true }
 
     context 'when exclude_engines option is specified' do
       before do
@@ -63,18 +66,21 @@ RSpec.describe JSRailsRoutes::RouteSet do
 
       context 'and it matches to the name' do
         let(:exclude_engines) { /Foo/ }
-        it { should be false }
+
+        it { is_expected.to be false }
       end
 
       context 'and it does not match to the name' do
         let(:exclude_engines) { /Bar/ }
-        it { should be true }
+
+        it { is_expected.to be true }
       end
     end
 
     context 'when routes are empty' do
       before { allow(route_set).to receive(:routes).and_return([]) }
-      it { should be false }
+
+      it { is_expected.to be false }
     end
   end
 end

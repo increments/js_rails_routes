@@ -15,17 +15,20 @@ RSpec.describe JSRailsRoutes::Route do
 
   describe '#name' do
     subject { route.name }
-    it { should eq 'articles' }
+
+    it { is_expected.to eq 'articles' }
   end
 
   describe '#path' do
     subject { route.path }
-    it { should eq '/articles' }
+
+    it { is_expected.to eq '/articles' }
   end
 
   describe '#match?' do
     subject { route.match? }
-    it { should be true }
+
+    it { is_expected.to be true }
 
     context 'when include_paths option is specified' do
       before do
@@ -36,12 +39,14 @@ RSpec.describe JSRailsRoutes::Route do
 
       context 'and it matches to the path' do
         let(:include_paths) { /articles/ }
-        it { should be true }
+
+        it { is_expected.to be true }
       end
 
       context 'and it does not matche to the path' do
         let(:include_paths) { /users/ }
-        it { should be false }
+
+        it { is_expected.to be false }
       end
     end
 
@@ -54,12 +59,14 @@ RSpec.describe JSRailsRoutes::Route do
 
       context 'and it matches to the path' do
         let(:exclude_paths) { /articles/ }
-        it { should be false }
+
+        it { is_expected.to be false }
       end
 
       context 'and it does not matche to the path' do
         let(:exclude_paths) { /users/ }
-        it { should be true }
+
+        it { is_expected.to be true }
       end
     end
 
@@ -72,12 +79,14 @@ RSpec.describe JSRailsRoutes::Route do
 
       context 'and it matches to the name' do
         let(:include_names) { /articles/ }
-        it { should be true }
+
+        it { is_expected.to be true }
       end
 
       context 'and it does not matche to the name' do
         let(:include_names) { /users/ }
-        it { should be false }
+
+        it { is_expected.to be false }
       end
     end
 
@@ -90,12 +99,14 @@ RSpec.describe JSRailsRoutes::Route do
 
       context 'and it matches to the name' do
         let(:exclude_names) { /articles/ }
-        it { should be false }
+
+        it { is_expected.to be false }
       end
 
       context 'and it does not matche to the name' do
         let(:exclude_names) { /users/ }
-        it { should be true }
+
+        it { is_expected.to be true }
       end
     end
   end

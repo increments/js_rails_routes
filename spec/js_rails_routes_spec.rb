@@ -9,14 +9,15 @@ RSpec.describe JSRailsRoutes do
 
   describe '.config' do
     subject { described_class.config }
-    it { should be_a JSRailsRoutes::Configuration }
+
+    it { is_expected.to be_a JSRailsRoutes::Configuration }
   end
 
   describe '.sandbox' do
     it 'yields within a new sandbox' do
       original = described_class.config
       described_class.sandbox do
-        expect(described_class.config).to_not be original
+        expect(described_class.config).not_to be original
         expect(described_class.config).to be_a JSRailsRoutes::Configuration
       end
       expect(described_class.config).to be original
@@ -25,6 +26,7 @@ RSpec.describe JSRailsRoutes do
 
   describe '.generate_javascript' do
     subject { described_class.generate_javascript(task) }
+
     let(:task) { 'js:routes' }
     let(:app_root) { JSRailsRoutes::SpecHelper::TestApp.root }
 
