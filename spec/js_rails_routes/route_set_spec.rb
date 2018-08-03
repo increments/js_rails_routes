@@ -75,6 +75,12 @@ RSpec.describe JSRailsRoutes::RouteSet do
 
         it { is_expected.to be true }
       end
+
+      context 'and it does not match to the name in a case-sensitive manner' do
+        let(:exclude_engines) { /foo/ }
+
+        it { is_expected.to be false }
+      end
     end
 
     context 'when routes are empty' do

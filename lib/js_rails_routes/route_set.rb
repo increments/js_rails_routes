@@ -40,7 +40,9 @@ module JSRailsRoutes
 
     # @return [Boolean]
     def match?
-      name !~ config.exclude_engines && routes.present?
+      return false if routes.blank?
+
+      name !~ Regexp.new(config.exclude_engines.source, Regexp::IGNORECASE)
     end
 
     private
