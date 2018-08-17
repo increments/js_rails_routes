@@ -9,6 +9,9 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ## [0.7.1] - 2018-07-26
 - Refactor whole code base
 
+### Fixed
+- Enable to math engine name in case-sensitive way.
+
 ## [0.7.0] - 2018-07-11
 ### Added
 - Support `camelize` option
