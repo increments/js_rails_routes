@@ -147,4 +147,10 @@ RSpec.describe JSRailsRoutes::Language::JavaScript do
       end
     end
   end
+
+  describe '#ext' do
+    subject { language.ext }
+
+    it { is_expected.to eq 'js' }
+  end
 end

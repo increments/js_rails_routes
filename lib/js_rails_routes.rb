@@ -5,6 +5,7 @@ require 'js_rails_routes/configuration'
 require 'js_rails_routes/generator'
 require 'js_rails_routes/version'
 require 'js_rails_routes/language/javascript'
+require 'js_rails_routes/language/typescript'
 
 module JSRailsRoutes
   PARAM_REGEXP = %r{:(.*?)(/|$)}
@@ -24,8 +25,8 @@ module JSRailsRoutes
   end
 
   # @param task [String]
-  def generate_javascript(task)
-    builder = Builder.new(Language::JavaScript.new)
+  def generate(task)
+    builder = Builder.new(JSRailsRoutes.language)
     Generator.new(builder).generate(task)
   end
 
@@ -42,6 +43,18 @@ module JSRailsRoutes
     ensure
       @config = prev
       @sandbox = nil
+    end
+  end
+
+  # @return [JSRailsRoutes::Language::Base]
+  def language
+    case config.target
+    when 'js'
+      Language::JavaScript.new
+    when 'ts'
+      Language::TypeScript.new
+    else
+      raise NotImplementedError, config.target
     end
   end
 end

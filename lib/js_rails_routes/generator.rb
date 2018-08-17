@@ -15,9 +15,9 @@ module JSRailsRoutes
     # @param task [String]
     # @return [Hash{String => String}]
     def generate(task)
-      builder.build.each do |name, body|
-        file_name = File.join(config.output_dir, "#{convert(name)}-routes.js")
-        file_body = "// Don't edit manually. `rake #{task}` generates this file.\n#{body}"
+      builder.build.each do |artifact|
+        file_name = File.join(config.output_dir, artifact.file_name)
+        file_body = "// Don't edit manually. `rake #{task}` generates this file.\n#{artifact.body}"
         writable.write(file_name, file_body)
       end
     end
@@ -29,12 +29,6 @@ module JSRailsRoutes
     # @return [JSRailsRoutes::Configuration]
     def config
       JSRailsRoutes.config
-    end
-
-    # @param engine_name [String]
-    # @return [String]
-    def convert(engine_name)
-      engine_name.gsub('::Engine', '').underscore.tr('/', '-')
     end
   end
 end

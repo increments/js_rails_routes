@@ -8,7 +8,8 @@ module JSRailsRoutes
                   :exclude_names,
                   :exclude_engines,
                   :output_dir,
-                  :camelize
+                  :camelize,
+                  :target
 
     def initialize
       self.include_paths = /.*/
@@ -18,6 +19,7 @@ module JSRailsRoutes
       self.exclude_engines = /^$/
       self.camelize = nil
       self.output_dir = Rails.root.join('app', 'assets', 'javascripts')
+      self.target = 'js'
     end
 
     # @param env [Hash{String=>String}]
@@ -27,6 +29,7 @@ module JSRailsRoutes
       end
       self.output_dir = env['output_dir'] if env['output_dir']
       self.camelize = env['camelize'].presence.to_sym if env['camelize']
+      self.target = env['target'] if env['target']
     end
   end
 end
