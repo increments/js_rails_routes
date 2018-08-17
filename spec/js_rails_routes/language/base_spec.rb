@@ -8,4 +8,10 @@ RSpec.describe JSRailsRoutes::Language::Base do
 
     it { expect { subject }.to raise_error(NotImplementedError) }
   end
+
+  describe '#ext' do
+    subject { language.ext }
+
+    it { expect { subject }.to raise_error(NotImplementedError) }
+  end
 end

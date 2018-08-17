@@ -5,7 +5,7 @@ RSpec.describe JSRailsRoutes::Builder do
 
   include_context 'run in a sandbox'
 
-  let(:language) { instance_double('JSRailsRoutes::Language::Base', handle_route_set: body) }
+  let(:language) { instance_double('JSRailsRoutes::Language::Base', handle_route_set: body, ext: %w[js ts].sample) }
   let(:body) { 'hello' }
   let(:route_set_list) { [rails_route_set, engine_route_set] }
 
@@ -30,8 +30,11 @@ RSpec.describe JSRailsRoutes::Builder do
   describe '#build' do
     subject { builder.build }
 
-    it 'returns a hash between engine name and its content' do
-      is_expected.to match(rails_route_set.name => body, engine_route_set.name => body)
+    it 'returns an array of artifacts' do
+      is_expected.to contain_exactly(
+        an_object_having_attributes(engine_name: rails_route_set.name, body: body),
+        an_object_having_attributes(engine_name: engine_route_set.name, body: body)
+      )
       expect(language).to have_received(:handle_route_set).twice
     end
   end

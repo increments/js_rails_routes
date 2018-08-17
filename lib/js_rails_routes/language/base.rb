@@ -9,6 +9,11 @@ module JSRailsRoutes
         raise NotImplementedError
       end
 
+      # @return [String]
+      def ext
+        raise NotImplementedError
+      end
+
       private
 
       # @return [JSRailsRoutes::Configuration]

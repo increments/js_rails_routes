@@ -7,7 +7,12 @@ RSpec.describe JSRailsRoutes::Generator do
 
   let(:writable) { spy('writable') }
   let(:builder) { double('builder', build: result) }
-  let(:result) { Hash['Rails' => 'rails body', 'Admin::Engine' => 'admin body'] }
+  let(:result) do
+    [
+      JSRailsRoutes::Builder::Artifact.new('Rails', 'js', 'rails body'),
+      JSRailsRoutes::Builder::Artifact.new('Admin::Engine', 'js', 'admin body')
+    ]
+  end
 
   describe '#generate' do
     subject { generator.generate(task) }

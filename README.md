@@ -84,6 +84,7 @@ Name              | Type      | Description                                     
 `exclude_engines` | `Regexp`  | Rails engines match to the regexp are excluded                                        | `/^$/`
 `output_dir`      | `String`  | Output JS file into the specified directory                                           | `Rails.root.join("app", "assets", "javascripts")`
 `camelize`        | `Symbol`  | Output JS file with chosen camelcase type it also avaliable for `:lower` and `:upper` | `nil`
+`target`          | `String`  | Target type. `"js"` or `"ts"`                                                         | `"js"`
 
 You can configure via `JSRailsRoutes.configure`.
 

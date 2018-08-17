@@ -20,7 +20,7 @@ module JSRailsRoutes
 
       # @note Implementation for {JSRailsRoutes::Language::Base#generate}
       def handle_route_set(routes)
-        routes.each_with_object([PROCESS_FUNC]) do |route, lines|
+        routes.each_with_object([self.class::PROCESS_FUNC]) do |route, lines|
           lines.push(handle_route(route))
         end.join("\n") + "\n"
       end
@@ -31,6 +31,11 @@ module JSRailsRoutes
         path, keys = parse(route.path)
         name = function_name(route.name)
         "export function #{name}(params) { return process('#{path}', params, [#{keys.join(',')}]); }"
+      end
+
+      # @note Implementation for {JSRailsRoutes::Language::Base#ext}
+      def ext
+        'js'
       end
 
       private
