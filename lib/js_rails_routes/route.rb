@@ -9,8 +9,12 @@ module JSRailsRoutes
     # @return [String]
     attr_reader :path
 
+    # @return [ActionDispatch::Journey::Route]
+    attr_reader :route
+
     # @param route [ActionDispatch::Journey::Route]
     def initialize(route)
+      @route = route
       @name = route.name
       @path = route.path.spec.to_s.split('(').first
     end
@@ -21,7 +25,7 @@ module JSRailsRoutes
       return false if config.exclude_paths =~ path
       return false if config.include_names !~ name
       return false if config.exclude_names =~ name
-      true
+      config.route_filter.call(self)
     end
 
     private

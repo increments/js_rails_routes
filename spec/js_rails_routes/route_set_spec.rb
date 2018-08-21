@@ -82,5 +82,25 @@ RSpec.describe JSRailsRoutes::RouteSet do
 
       it { is_expected.to be false }
     end
+
+    context 'when route_set_filter option is specified' do
+      before do
+        JSRailsRoutes.configure do |c|
+          c.route_set_filter = ->(_route) { result }
+        end
+      end
+
+      context 'and it returns true' do
+        let(:result) { true }
+
+        it { is_expected.to be true }
+      end
+
+      context 'and it returns false' do
+        let(:result) { false }
+
+        it { is_expected.to be false }
+      end
+    end
   end
 end
