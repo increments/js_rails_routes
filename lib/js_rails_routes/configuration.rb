@@ -9,7 +9,9 @@ module JSRailsRoutes
                   :exclude_engines,
                   :output_dir,
                   :camelize,
-                  :target
+                  :target,
+                  :route_filter,
+                  :route_set_filter
 
     def initialize
       self.include_paths = /.*/
@@ -20,6 +22,8 @@ module JSRailsRoutes
       self.camelize = nil
       self.output_dir = Rails.root.join('app', 'assets', 'javascripts')
       self.target = 'js'
+      self.route_filter = ->(_route) { true }
+      self.route_set_filter = ->(_route_set) { true }
     end
 
     # @param env [Hash{String=>String}]

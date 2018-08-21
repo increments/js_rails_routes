@@ -109,5 +109,25 @@ RSpec.describe JSRailsRoutes::Route do
         it { is_expected.to be true }
       end
     end
+
+    context 'when route_filter option is specified' do
+      before do
+        JSRailsRoutes.configure do |c|
+          c.route_filter = ->(_route) { result }
+        end
+      end
+
+      context 'and it returns true' do
+        let(:result) { true }
+
+        it { is_expected.to be true }
+      end
+
+      context 'and it returns false' do
+        let(:result) { false }
+
+        it { is_expected.to be false }
+      end
+    end
   end
 end

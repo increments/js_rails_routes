@@ -25,6 +25,9 @@ module JSRailsRoutes
     # @return [String]
     attr_reader :name
 
+    # @return [ActionDispatch::Routing::RouteSet]
+    attr_reader :route_set
+
     # @return [Array<JSRailsRoutes::Route>]
     attr_reader :routes
 
@@ -32,6 +35,7 @@ module JSRailsRoutes
     # @param routes [ActionDispatch::Routing::RouteSet]
     def initialize(name, routes)
       @name = name
+      @route_set = route_set
       @routes = routes.routes
                       .select(&:name)
                       .map { |route| Route.new(route) }
@@ -40,7 +44,7 @@ module JSRailsRoutes
 
     # @return [Boolean]
     def match?
-      name !~ config.exclude_engines && routes.present?
+      name !~ config.exclude_engines && routes.present? && config.route_set_filter.call(self)
     end
 
     private

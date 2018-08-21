@@ -7,6 +7,7 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ## [Unreleased]
 ### Added
 - Support TypeScript
+- Add `route_filter` and `route_set_filter` options
 
 ## [0.7.1] - 2018-07-26
 - Refactor whole code base
@@ -34,7 +35,7 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [0.4.0] - 2017-04-05
 ### Added
-- Add `include_names` and `exclude_names` option
+- Add `include_names` and `exclude_names` options
 
 ### Changed
 - Rename `includes` and `excludes` as `include_paths` and `exclude_paths` respectively
