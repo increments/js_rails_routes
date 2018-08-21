@@ -77,8 +77,8 @@ RSpec.describe JSRailsRoutes::Language::JavaScript do
           #{described_class::PROCESS_FUNC}
           export function ArticlesPath(params) { return process('/articles', params, []); }
           export function NewArticlePath(params) { return process('/articles/new', params, []); }
-          export function EditArticlePath(params) { return process('/articles/' + params.id + '/edit', params, ['id']); }
-          export function ArticlePath(params) { return process('/articles/' + params.id + '', params, ['id']); }
+          export function EditArticlePath(params) { return process('/articles/' + params.Id + '/edit', params, ['Id']); }
+          export function ArticlePath(params) { return process('/articles/' + params.Id + '', params, ['Id']); }
         JAVASCRIPT
       end
     end

@@ -46,11 +46,9 @@ module JSRailsRoutes
         destructured_path = route_path.dup
         keys = []
         while destructured_path =~ JSRailsRoutes::PARAM_REGEXP
-          keys.push("'#{Regexp.last_match(1)}'")
-          destructured_path.sub!(
-            JSRailsRoutes::PARAM_REGEXP,
-            "' + params.#{Regexp.last_match(1)} + '#{Regexp.last_match(2)}"
-          )
+          key = camelize(Regexp.last_match(1))
+          keys.push("'#{key}'")
+          destructured_path.sub!(JSRailsRoutes::PARAM_REGEXP, "' + params.#{key} + '#{Regexp.last_match(2)}")
         end
         [destructured_path, keys]
       end
@@ -60,6 +58,17 @@ module JSRailsRoutes
       def function_name(route_name)
         url_helper_name = route_name + '_path'
         config.camelize.nil? ? url_helper_name : url_helper_name.camelize(config.camelize)
+      end
+
+      # @param name [String]
+      # @return [String]
+      def camelize(name)
+        config.camelize ? name.camelize(config.camelize) : name
+      end
+
+      # @return [JSRailsRoutes::Configuration]
+      def config
+        JSRailsRoutes.config
       end
     end
   end
