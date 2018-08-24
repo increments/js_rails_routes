@@ -10,8 +10,10 @@ RSpec.describe JSRailsRoutes::Language::TypeScript do
 
     it 'returns a typescript function' do
       is_expected.to eq <<~TYPESCRIPT
-        type Params = Record<string, string | number>
-        function process(route: string, params: Params, keys: string[]): string {
+        type Value = string | number
+        type Params<Keys extends string> = { [key in Keys]: Value } & Record<string, Value>
+        function process(route: string, params: Record<string, Value> | undefined, keys: string[]): string {
+          if (!params) return route
           var query = [];
           for (var param in params) if (params.hasOwnProperty(param)) {
             if (keys.indexOf(param) === -1) {
@@ -40,10 +42,10 @@ RSpec.describe JSRailsRoutes::Language::TypeScript do
       it 'returns a typescript with snake_case functions' do
         is_expected.to eq <<~TYPESCRIPT
           #{described_class::PROCESS_FUNC}
-          export function articles_path(params: Params) { return process('/articles', params, []); }
-          export function new_article_path(params: Params) { return process('/articles/new', params, []); }
-          export function edit_article_path(params: Params) { return process('/articles/' + params.id + '/edit', params, ['id']); }
-          export function article_path(params: Params) { return process('/articles/' + params.id + '', params, ['id']); }
+          export function articles_path(params?: Record<string, Value>) { return process('/articles', params, []); }
+          export function new_article_path(params?: Record<string, Value>) { return process('/articles/new', params, []); }
+          export function edit_article_path(params: Params<'id'>) { return process('/articles/' + params.id + '/edit', params, ['id']); }
+          export function article_path(params: Params<'id'>) { return process('/articles/' + params.id + '', params, ['id']); }
         TYPESCRIPT
       end
     end
@@ -58,10 +60,10 @@ RSpec.describe JSRailsRoutes::Language::TypeScript do
       it 'returns a javascript with lowerCamelCase functions' do
         is_expected.to eq <<~TYPESCRIPT
           #{described_class::PROCESS_FUNC}
-          export function articlesPath(params: Params) { return process('/articles', params, []); }
-          export function newArticlePath(params: Params) { return process('/articles/new', params, []); }
-          export function editArticlePath(params: Params) { return process('/articles/' + params.id + '/edit', params, ['id']); }
-          export function articlePath(params: Params) { return process('/articles/' + params.id + '', params, ['id']); }
+          export function articlesPath(params?: Record<string, Value>) { return process('/articles', params, []); }
+          export function newArticlePath(params?: Record<string, Value>) { return process('/articles/new', params, []); }
+          export function editArticlePath(params: Params<'id'>) { return process('/articles/' + params.id + '/edit', params, ['id']); }
+          export function articlePath(params: Params<'id'>) { return process('/articles/' + params.id + '', params, ['id']); }
         TYPESCRIPT
       end
     end
@@ -76,10 +78,10 @@ RSpec.describe JSRailsRoutes::Language::TypeScript do
       it 'returns a javascript with UpperCamelCase functions' do
         is_expected.to eq <<~TYPESCRIPT
           #{described_class::PROCESS_FUNC}
-          export function ArticlesPath(params: Params) { return process('/articles', params, []); }
-          export function NewArticlePath(params: Params) { return process('/articles/new', params, []); }
-          export function EditArticlePath(params: Params) { return process('/articles/' + params.Id + '/edit', params, ['Id']); }
-          export function ArticlePath(params: Params) { return process('/articles/' + params.Id + '', params, ['Id']); }
+          export function ArticlesPath(params?: Record<string, Value>) { return process('/articles', params, []); }
+          export function NewArticlePath(params?: Record<string, Value>) { return process('/articles/new', params, []); }
+          export function EditArticlePath(params: Params<'Id'>) { return process('/articles/' + params.Id + '/edit', params, ['Id']); }
+          export function ArticlePath(params: Params<'Id'>) { return process('/articles/' + params.Id + '', params, ['Id']); }
         TYPESCRIPT
       end
     end
@@ -94,7 +96,7 @@ RSpec.describe JSRailsRoutes::Language::TypeScript do
       it 'returns a javascript matching to the regexp' do
         is_expected.to eq <<~TYPESCRIPT
           #{described_class::PROCESS_FUNC}
-          export function new_article_path(params: Params) { return process('/articles/new', params, []); }
+          export function new_article_path(params?: Record<string, Value>) { return process('/articles/new', params, []); }
         TYPESCRIPT
       end
     end
@@ -109,9 +111,9 @@ RSpec.describe JSRailsRoutes::Language::TypeScript do
       it 'returns a javascript not matching to the regexp' do
         is_expected.to eq <<~TYPESCRIPT
           #{described_class::PROCESS_FUNC}
-          export function articles_path(params: Params) { return process('/articles', params, []); }
-          export function edit_article_path(params: Params) { return process('/articles/' + params.id + '/edit', params, ['id']); }
-          export function article_path(params: Params) { return process('/articles/' + params.id + '', params, ['id']); }
+          export function articles_path(params?: Record<string, Value>) { return process('/articles', params, []); }
+          export function edit_article_path(params: Params<'id'>) { return process('/articles/' + params.id + '/edit', params, ['id']); }
+          export function article_path(params: Params<'id'>) { return process('/articles/' + params.id + '', params, ['id']); }
         TYPESCRIPT
       end
     end
@@ -126,7 +128,7 @@ RSpec.describe JSRailsRoutes::Language::TypeScript do
       it 'returns a javascript matching to the regexp' do
         is_expected.to eq <<~TYPESCRIPT
           #{described_class::PROCESS_FUNC}
-          export function new_article_path(params: Params) { return process('/articles/new', params, []); }
+          export function new_article_path(params?: Record<string, Value>) { return process('/articles/new', params, []); }
         TYPESCRIPT
       end
     end
@@ -141,9 +143,9 @@ RSpec.describe JSRailsRoutes::Language::TypeScript do
       it 'returns a javascript not matching to the regexp' do
         is_expected.to eq <<~TYPESCRIPT
           #{described_class::PROCESS_FUNC}
-          export function articles_path(params: Params) { return process('/articles', params, []); }
-          export function edit_article_path(params: Params) { return process('/articles/' + params.id + '/edit', params, ['id']); }
-          export function article_path(params: Params) { return process('/articles/' + params.id + '', params, ['id']); }
+          export function articles_path(params?: Record<string, Value>) { return process('/articles', params, []); }
+          export function edit_article_path(params: Params<'id'>) { return process('/articles/' + params.id + '/edit', params, ['id']); }
+          export function article_path(params: Params<'id'>) { return process('/articles/' + params.id + '', params, ['id']); }
         TYPESCRIPT
       end
     end
