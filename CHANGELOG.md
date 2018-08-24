@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [Unreleased]
+### Added
+- Improved TypeScript params typing support
 
 ## [0.8.1] - 2018-08-21
 ### Fixed
