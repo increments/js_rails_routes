@@ -9,7 +9,7 @@ RSpec.describe JSRailsRoutes::Language::JavaScript do
     subject { described_class::PROCESS_FUNC }
 
     it 'returns a javascript function' do
-      is_expected.to eq <<~JAVASCRIPT
+      expect(subject).to eq <<~JAVASCRIPT
         function process(route, params, keys) {
           var query = [];
           for (var param in params) if (params.hasOwnProperty(param)) {
@@ -37,7 +37,7 @@ RSpec.describe JSRailsRoutes::Language::JavaScript do
 
     context 'without camelize option' do
       it 'returns a javascript with snake_case functions' do
-        is_expected.to eq <<~JAVASCRIPT
+        expect(subject).to eq <<~JAVASCRIPT
           #{described_class::PROCESS_FUNC}
           export function articles_path(params) { return process('/articles', params, []); }
           export function new_article_path(params) { return process('/articles/new', params, []); }
@@ -55,7 +55,7 @@ RSpec.describe JSRailsRoutes::Language::JavaScript do
       end
 
       it 'returns a javascript with lowerCamelCase functions' do
-        is_expected.to eq <<~JAVASCRIPT
+        expect(subject).to eq <<~JAVASCRIPT
           #{described_class::PROCESS_FUNC}
           export function articlesPath(params) { return process('/articles', params, []); }
           export function newArticlePath(params) { return process('/articles/new', params, []); }
@@ -73,7 +73,7 @@ RSpec.describe JSRailsRoutes::Language::JavaScript do
       end
 
       it 'returns a javascript with UpperCamelCase functions' do
-        is_expected.to eq <<~JAVASCRIPT
+        expect(subject).to eq <<~JAVASCRIPT
           #{described_class::PROCESS_FUNC}
           export function ArticlesPath(params) { return process('/articles', params, []); }
           export function NewArticlePath(params) { return process('/articles/new', params, []); }
@@ -91,7 +91,7 @@ RSpec.describe JSRailsRoutes::Language::JavaScript do
       end
 
       it 'returns a javascript matching to the regexp' do
-        is_expected.to eq <<~JAVASCRIPT
+        expect(subject).to eq <<~JAVASCRIPT
           #{described_class::PROCESS_FUNC}
           export function new_article_path(params) { return process('/articles/new', params, []); }
         JAVASCRIPT
@@ -106,7 +106,7 @@ RSpec.describe JSRailsRoutes::Language::JavaScript do
       end
 
       it 'returns a javascript not matching to the regexp' do
-        is_expected.to eq <<~JAVASCRIPT
+        expect(subject).to eq <<~JAVASCRIPT
           #{described_class::PROCESS_FUNC}
           export function articles_path(params) { return process('/articles', params, []); }
           export function edit_article_path(params) { return process('/articles/' + params.id + '/edit', params, ['id']); }
@@ -123,7 +123,7 @@ RSpec.describe JSRailsRoutes::Language::JavaScript do
       end
 
       it 'returns a javascript matching to the regexp' do
-        is_expected.to eq <<~JAVASCRIPT
+        expect(subject).to eq <<~JAVASCRIPT
           #{described_class::PROCESS_FUNC}
           export function new_article_path(params) { return process('/articles/new', params, []); }
         JAVASCRIPT
@@ -138,7 +138,7 @@ RSpec.describe JSRailsRoutes::Language::JavaScript do
       end
 
       it 'returns a javascript not matching to the regexp' do
-        is_expected.to eq <<~JAVASCRIPT
+        expect(subject).to eq <<~JAVASCRIPT
           #{described_class::PROCESS_FUNC}
           export function articles_path(params) { return process('/articles', params, []); }
           export function edit_article_path(params) { return process('/articles/' + params.id + '/edit', params, ['id']); }

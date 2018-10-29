@@ -9,7 +9,7 @@ RSpec.describe JSRailsRoutes::Language::TypeScript do
     subject { described_class::PROCESS_FUNC }
 
     it 'returns a typescript function' do
-      is_expected.to eq <<~TYPESCRIPT
+      expect(subject).to eq <<~TYPESCRIPT
         type Value = string | number
         type Params<Keys extends string> = { [key in Keys]: Value } & Record<string, Value>
         function process(route: string, params: Record<string, Value> | undefined, keys: string[]): string {
@@ -40,7 +40,7 @@ RSpec.describe JSRailsRoutes::Language::TypeScript do
 
     context 'without camelize option' do
       it 'returns a typescript with snake_case functions' do
-        is_expected.to eq <<~TYPESCRIPT
+        expect(subject).to eq <<~TYPESCRIPT
           #{described_class::PROCESS_FUNC}
           export function articles_path(params?: Record<string, Value>) { return process('/articles', params, []); }
           export function new_article_path(params?: Record<string, Value>) { return process('/articles/new', params, []); }
@@ -58,7 +58,7 @@ RSpec.describe JSRailsRoutes::Language::TypeScript do
       end
 
       it 'returns a javascript with lowerCamelCase functions' do
-        is_expected.to eq <<~TYPESCRIPT
+        expect(subject).to eq <<~TYPESCRIPT
           #{described_class::PROCESS_FUNC}
           export function articlesPath(params?: Record<string, Value>) { return process('/articles', params, []); }
           export function newArticlePath(params?: Record<string, Value>) { return process('/articles/new', params, []); }
@@ -76,7 +76,7 @@ RSpec.describe JSRailsRoutes::Language::TypeScript do
       end
 
       it 'returns a javascript with UpperCamelCase functions' do
-        is_expected.to eq <<~TYPESCRIPT
+        expect(subject).to eq <<~TYPESCRIPT
           #{described_class::PROCESS_FUNC}
           export function ArticlesPath(params?: Record<string, Value>) { return process('/articles', params, []); }
           export function NewArticlePath(params?: Record<string, Value>) { return process('/articles/new', params, []); }
@@ -94,7 +94,7 @@ RSpec.describe JSRailsRoutes::Language::TypeScript do
       end
 
       it 'returns a javascript matching to the regexp' do
-        is_expected.to eq <<~TYPESCRIPT
+        expect(subject).to eq <<~TYPESCRIPT
           #{described_class::PROCESS_FUNC}
           export function new_article_path(params?: Record<string, Value>) { return process('/articles/new', params, []); }
         TYPESCRIPT
@@ -109,7 +109,7 @@ RSpec.describe JSRailsRoutes::Language::TypeScript do
       end
 
       it 'returns a javascript not matching to the regexp' do
-        is_expected.to eq <<~TYPESCRIPT
+        expect(subject).to eq <<~TYPESCRIPT
           #{described_class::PROCESS_FUNC}
           export function articles_path(params?: Record<string, Value>) { return process('/articles', params, []); }
           export function edit_article_path(params: Params<'id'>) { return process('/articles/' + params.id + '/edit', params, ['id']); }
@@ -126,7 +126,7 @@ RSpec.describe JSRailsRoutes::Language::TypeScript do
       end
 
       it 'returns a javascript matching to the regexp' do
-        is_expected.to eq <<~TYPESCRIPT
+        expect(subject).to eq <<~TYPESCRIPT
           #{described_class::PROCESS_FUNC}
           export function new_article_path(params?: Record<string, Value>) { return process('/articles/new', params, []); }
         TYPESCRIPT
@@ -141,7 +141,7 @@ RSpec.describe JSRailsRoutes::Language::TypeScript do
       end
 
       it 'returns a javascript not matching to the regexp' do
-        is_expected.to eq <<~TYPESCRIPT
+        expect(subject).to eq <<~TYPESCRIPT
           #{described_class::PROCESS_FUNC}
           export function articles_path(params?: Record<string, Value>) { return process('/articles', params, []); }
           export function edit_article_path(params: Params<'id'>) { return process('/articles/' + params.id + '/edit', params, ['id']); }
