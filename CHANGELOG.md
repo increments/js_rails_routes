@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [Unreleased]
+### Added
+- Enable to change route's name
 
 ## [0.9.0] - 2018-08-24
 ### Added

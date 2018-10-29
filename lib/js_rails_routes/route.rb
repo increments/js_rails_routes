@@ -3,8 +3,8 @@
 module JSRailsRoutes
   # Encapsulate a single routing rule
   class Route
-    # @return [String]
-    attr_reader :name
+    # @return [String] route name. It becomes JavaScript function name.
+    attr_accessor :name
 
     # @return [String]
     attr_reader :path

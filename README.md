@@ -110,6 +110,21 @@ rake js:routes exclude_paths='^/rails'
 
 The command still ignores "/rails" but includes "/sidekiq".
 
+### Rename route
+
+You can rename route in `route_filter`:
+
+```rb
+# Rakefile
+JSRailsRoutes.configure do |c|
+  c.route_filter = -> (route) do
+    # Remove common prefix if route's name starts with it.
+    route.name = route.name[4..-1] if route.name.start_with?('foo_')
+    true
+  end
+end
+```
+
 ## Install
 
 Your Rails Gemfile:
