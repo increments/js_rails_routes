@@ -19,6 +19,14 @@ RSpec.describe JSRailsRoutes::Route do
     it { is_expected.to eq 'articles' }
   end
 
+  describe '#name=' do
+    subject { route.name = value }
+
+    let(:value) { 'foo' }
+
+    it { expect { subject }.to change(route, :name).to(value) }
+  end
+
   describe '#path' do
     subject { route.path }
 
