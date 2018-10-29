@@ -31,7 +31,7 @@ RSpec.describe JSRailsRoutes::Builder do
     subject { builder.build }
 
     it 'returns an array of artifacts' do
-      is_expected.to contain_exactly(
+      expect(subject).to contain_exactly(
         an_object_having_attributes(engine_name: rails_route_set.name, body: body),
         an_object_having_attributes(engine_name: engine_route_set.name, body: body)
       )

@@ -8,7 +8,7 @@ require 'js_rails_routes/language/javascript'
 require 'js_rails_routes/language/typescript'
 
 module JSRailsRoutes
-  PARAM_REGEXP = %r{:(.*?)(/|$)}
+  PARAM_REGEXP = %r{:(.*?)(/|$)}.freeze
 
   module_function
 
@@ -35,6 +35,7 @@ module JSRailsRoutes
   # @yield
   def sandbox
     raise 'Already in a sandbox' if @sandbox
+
     @sandbox = true
     prev = @config
     @config = Configuration.new

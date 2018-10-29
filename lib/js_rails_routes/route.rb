@@ -25,6 +25,7 @@ module JSRailsRoutes
       return false if config.exclude_paths =~ path
       return false if config.include_names !~ name
       return false if config.exclude_names =~ name
+
       config.route_filter.call(self)
     end
 

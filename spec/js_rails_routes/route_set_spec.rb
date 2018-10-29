@@ -20,7 +20,7 @@ RSpec.describe JSRailsRoutes::RouteSet do
 
     it 'returns an array of matching route sets' do
       # See spec/support/test_app.rb
-      is_expected.to match [
+      expect(subject).to match [
         be_a(described_class).and(have_attributes(name: 'Rails')).and(be_match),
         be_a(described_class).and(have_attributes(name: 'Admin::Engine')).and(be_match)
       ]
@@ -46,8 +46,8 @@ RSpec.describe JSRailsRoutes::RouteSet do
       end
 
       it "doesn't include the excluded route" do
-        is_expected.to include be_a(JSRailsRoutes::Route).and(have_attributes(name: /articles/))
-        is_expected.not_to include be_a(JSRailsRoutes::Route).and(have_attributes(name: /users/))
+        expect(subject).to include be_a(JSRailsRoutes::Route).and(have_attributes(name: /articles/))
+        expect(subject).not_to include be_a(JSRailsRoutes::Route).and(have_attributes(name: /users/))
       end
     end
   end
