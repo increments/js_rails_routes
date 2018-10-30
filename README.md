@@ -1,11 +1,10 @@
 # rake js:routes
 
 [![Gem](https://img.shields.io/gem/v/js_rails_routes.svg?maxAge=2592000)](https://rubygems.org/gems/js_rails_routes)
-[![Build Status](https://travis-ci.org/yuku/js_rails_routes.svg?branch=master)](https://travis-ci.org/yuku/js_rails_routes)
-[![Code Climate](https://codeclimate.com/github/yuku/js_rails_routes/badges/gpa.svg)](https://codeclimate.com/github/yuku/js_rails_routes)
-[![Test Coverage](https://codeclimate.com/github/yuku/js_rails_routes/badges/coverage.svg)](https://codeclimate.com/github/yuku/js_rails_routes/coverage)
-[![license](https://img.shields.io/github/license/yuku/js_rails_routes.svg?maxAge=2592000)](https://github.com/yuku/js_rails_routes/blob/master/LICENSE)
-[![Analytics](https://ga-beacon.appspot.com/UA-4932407-14/js_rails_routes/readme)](https://github.com/igrigorik/ga-beacon)
+[![Build Status](https://travis-ci.org/increments/js_rails_routes.svg?branch=master)](https://travis-ci.org/increments/js_rails_routes)
+[![Code Climate](https://codeclimate.com/github/increments/js_rails_routes/badges/gpa.svg)](https://codeclimate.com/github/increments/js_rails_routes)
+[![Test Coverage](https://codeclimate.com/github/increments/js_rails_routes/badges/coverage.svg)](https://codeclimate.com/github/increments/js_rails_routes/coverage)
+[![license](https://img.shields.io/github/license/increments/js_rails_routes.svg?maxAge=2592000)](https://github.com/increments/js_rails_routes/blob/master/LICENSE)
 
 Generate a ES6 module that contains Rails routes.
 
@@ -135,10 +134,4 @@ gem 'js_rails_routes', group: :development
 
 ## License
 
-[MIT](https://github.com/yuku-t/js_rails_routes/blob/master/LICENSE)
-
-## Author
-
-[mizchi](https://github.com/mizchi) wrote "js:routes" task with referencing [mtrpcic/js-routes](https://github.com/mtrpcic/js-routes).
-
-[yuku-t](https://yuku-t.com) refactored and improved the mizchi's script and published to [rubygems](https://rubygems.org/gems/js_rails_routes).
+[MIT](https://github.com/increments/js_rails_routes/blob/master/LICENSE)
