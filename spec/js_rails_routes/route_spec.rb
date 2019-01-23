@@ -2,6 +2,7 @@
 
 RSpec.describe JSRailsRoutes::Route do
   subject(:route) { described_class.new(raw_route) }
+  subject(:nullable_scope_route) { described_class.new(nullable_scope_raw_route) }
 
   include_context 'run in a sandbox'
 
@@ -9,6 +10,16 @@ RSpec.describe JSRailsRoutes::Route do
     ActionDispatch::Routing::RouteSet.new.tap do |routes|
       routes.draw do
         get '/articles' => 'articles#index'
+      end
+    end.routes.first
+  end
+
+  let(:nullable_scope_raw_route) do
+    ActionDispatch::Routing::RouteSet.new.tap do |routes|
+      routes.draw do
+        scope '(/:locale)' do
+          get '/users' => 'users#index'
+        end
       end
     end.routes.first
   end
@@ -31,6 +42,10 @@ RSpec.describe JSRailsRoutes::Route do
     subject { route.path }
 
     it { is_expected.to eq '/articles' }
+
+    it 'returns url include nullable scope' do
+      expect(nullable_scope_route.path).to eq '/:locale/users'
+    end
   end
 
   describe '#match?' do
