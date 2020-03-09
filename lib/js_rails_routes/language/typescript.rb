@@ -11,7 +11,7 @@ module JSRailsRoutes
         type Params<Keys extends string> = { [key in Keys]: Value } & Record<string, Value>
         function process(route: string, params: Record<string, Value> | undefined, keys: string[]): string {
           if (!params) return route
-          var query = [];
+          var query: string[] = [];
           for (var param in params) if (params.hasOwnProperty(param)) {
             if (keys.indexOf(param) === -1) {
               query.push(param + "=" + encodeURIComponent(params[param].toString()));
