@@ -6,6 +6,9 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [Unreleased]
 
+### Changed
+- Update corporate name from Increments Inc. to Qiita Inc.
+
 ## [0.10.1] - 2020-03-09
 ### Fixed
 - Improved TypeScript typing
