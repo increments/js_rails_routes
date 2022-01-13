@@ -7,8 +7,8 @@ require 'js_rails_routes/version'
 Gem::Specification.new do |spec|
   spec.name            = 'js_rails_routes'
   spec.version         = JSRailsRoutes::VERSION
-  spec.authors         = ['Yuku Takahashi']
-  spec.email           = ['yuku@qiita.com']
+  spec.authors         = ['Qiita Inc.']
+  spec.email           = ['engineers@qiita.com']
   spec.summary         = 'Generate a ES6 module that contains Rails routes.'
   spec.homepage        = 'https://github.com/increments/js_rails_routes'
   spec.license         = 'MIT'
