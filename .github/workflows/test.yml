@@ -1,0 +1,43 @@
+name: Test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['ubuntu-18.04', 'ubuntu-latest', 'macos-latest']
+        ruby: [2.3, 2.4, 2.5]
+        experimental: [false]
+        include:
+          - os: 'ubuntu-latest'
+            ruby: 'head'
+            experimental: true
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
+    steps:
+      - name: Get branch names
+        id: branch-name
+        uses: tj-actions/branch-names@v4.9
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          GIT_BRANCH: ${{ steps.branch-name.outputs.current_branch }}
+          GIT_COMMIT_SHA: ${{ github.sha }}
+        with:
+          coverageCommand: bundle exec rake
