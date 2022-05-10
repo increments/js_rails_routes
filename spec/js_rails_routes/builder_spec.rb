@@ -5,7 +5,7 @@ RSpec.describe JSRailsRoutes::Builder do
 
   include_context 'run in a sandbox'
 
-  let(:language) { instance_double('JSRailsRoutes::Language::Base', handle_route_set: body, ext: %w[js ts].sample) }
+  let(:language) { instance_double(JSRailsRoutes::Language::Base, handle_route_set: body, ext: %w[js ts].sample) }
   let(:body) { 'hello' }
   let(:route_set_list) { [rails_route_set, engine_route_set] }
 
