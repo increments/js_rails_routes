@@ -9,6 +9,7 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ### Changed
 - Update corporate name from Increments Inc. to Qiita Inc.
 - Update gem authors and emails in gemspec file
+- Change ci from travis.ci to github actions
 
 ## [0.10.1] - 2020-03-09
 ### Fixed
