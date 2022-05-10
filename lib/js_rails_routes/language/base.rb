@@ -5,7 +5,7 @@ module JSRailsRoutes
     class Base
       # @param routes [JSRailsRoutes::RouteSet]
       # @return [String]
-      def handle_route_set(routes) # rubocop:disable Lint/UnusedMethodArgument
+      def handle_route_set(routes)
         raise NotImplementedError
       end
 
