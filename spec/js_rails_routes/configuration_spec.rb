@@ -7,7 +7,7 @@ RSpec.describe JSRailsRoutes::Configuration do
     subject { config.configure_with_env_vars(env) }
 
     context 'with empty env' do
-      let(:env) { Hash[] }
+      let(:env) { {} }
 
       it 'does not change' do
         expect { subject }.to not_change(config, :include_paths)
@@ -21,7 +21,7 @@ RSpec.describe JSRailsRoutes::Configuration do
     end
 
     context 'with include_paths env' do
-      let(:env) { Hash['include_paths' => 'a'] }
+      let(:env) { { 'include_paths' => 'a' } }
 
       it 'changes #include_paths' do
         expect { subject }.to change(config, :include_paths).to eq(/a/)
@@ -29,7 +29,7 @@ RSpec.describe JSRailsRoutes::Configuration do
     end
 
     context 'with exclude_paths env' do
-      let(:env) { Hash['exclude_paths' => 'a'] }
+      let(:env) { { 'exclude_paths' => 'a' } }
 
       it 'changes #exclude_paths' do
         expect { subject }.to change(config, :exclude_paths).to eq(/a/)
@@ -37,7 +37,7 @@ RSpec.describe JSRailsRoutes::Configuration do
     end
 
     context 'with include_names env' do
-      let(:env) { Hash['include_names' => 'a'] }
+      let(:env) { { 'include_names' => 'a' } }
 
       it 'changes #include_names' do
         expect { subject }.to change(config, :include_names).to eq(/a/)
@@ -45,7 +45,7 @@ RSpec.describe JSRailsRoutes::Configuration do
     end
 
     context 'with exclude_names env' do
-      let(:env) { Hash['exclude_names' => 'a'] }
+      let(:env) { { 'exclude_names' => 'a' } }
 
       it 'changes #exclude_names' do
         expect { subject }.to change(config, :exclude_names).to eq(/a/)
@@ -53,7 +53,7 @@ RSpec.describe JSRailsRoutes::Configuration do
     end
 
     context 'with exclude_engines env' do
-      let(:env) { Hash['exclude_engines' => 'a'] }
+      let(:env) { { 'exclude_engines' => 'a' } }
 
       it 'changes #exclude_engines' do
         expect { subject }.to change(config, :exclude_engines).to eq(/a/)
@@ -61,7 +61,7 @@ RSpec.describe JSRailsRoutes::Configuration do
     end
 
     context 'with output_dir env' do
-      let(:env) { Hash['output_dir' => 'path'] }
+      let(:env) { { 'output_dir' => 'path' } }
 
       it 'changes #output_dir' do
         expect { subject }.to change(config, :output_dir).to eq 'path'
@@ -69,7 +69,7 @@ RSpec.describe JSRailsRoutes::Configuration do
     end
 
     context 'with camelize env' do
-      let(:env) { Hash['camelize' => 'lower'] }
+      let(:env) { { 'camelize' => 'lower' } }
 
       it 'changes #camelize' do
         expect { subject }.to change(config, :camelize).to eq :lower
