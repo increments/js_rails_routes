@@ -13,7 +13,7 @@ module JSRailsRoutes
                   :route_filter,
                   :route_set_filter
 
-    def initialize
+    def initialize # rubocop:disable Metrics/AbcSize
       self.include_paths = /.*/
       self.exclude_paths = /^$/
       self.include_names = /.*/
@@ -27,7 +27,7 @@ module JSRailsRoutes
     end
 
     # @param env [Hash{String=>String}]
-    def configure_with_env_vars(env = ENV)
+    def configure_with_env_vars(env = ENV) # rubocop:disable Metrics/AbcSize
       %w[include_paths exclude_paths include_names exclude_names exclude_engines].each do |name|
         public_send("#{name}=", Regexp.new(env[name])) if env[name]
       end
