@@ -25,9 +25,9 @@ RSpec.describe JSRailsRoutes do
   end
 
   describe '.generate' do
-    include_context 'run in a sandbox'
-
     subject { described_class.generate(task) }
+
+    include_context 'run in a sandbox'
 
     let(:task) { 'js:routes' }
     let(:app_root) { JSRailsRoutes::SpecHelper::TestApp.root }
