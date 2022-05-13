@@ -7,6 +7,7 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ## [Unreleased]
 
 ### Changed
+- Remove codeclimate and execute rubocop in github actions
 - Update corporate name from Increments Inc. to Qiita Inc.
 - Update gem authors and emails in gemspec file
 - Change ci from travis.ci to github actions
