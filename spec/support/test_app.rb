@@ -27,8 +27,7 @@ module JSRailsRoutes
         'Empty::Engine'
       end
 
-      routes.draw do
-      end
+      routes.draw {} # rubocop:disable Lint/EmptyBlock
     end
   end
 end

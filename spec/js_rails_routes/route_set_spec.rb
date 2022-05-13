@@ -78,7 +78,11 @@ RSpec.describe JSRailsRoutes::RouteSet do
     end
 
     context 'when routes are empty' do
-      before { allow(route_set).to receive(:routes).and_return([]) }
+      let(:routes) do
+        ActionDispatch::Routing::RouteSet.new.tap do |routes|
+          routes.draw {} # rubocop:disable Lint/EmptyBlock
+        end
+      end
 
       it { is_expected.to be false }
     end

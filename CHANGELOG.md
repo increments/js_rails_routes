@@ -10,6 +10,9 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 - Update corporate name from Increments Inc. to Qiita Inc.
 - Update gem authors and emails in gemspec file
 - Change ci from travis.ci to github actions
+- Drop supporting legacy Ruby versions
+- Add supporting new ruby versions
+- Depend on rails >= 6.0
 
 ## [0.10.1] - 2020-03-09
 ### Fixed

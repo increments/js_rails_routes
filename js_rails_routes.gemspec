@@ -14,14 +14,15 @@ Gem::Specification.new do |spec|
   spec.license         = 'MIT'
   spec.files           = `git ls-files -z`.split("\x0")
   spec.require_paths   = ['lib']
-  spec.required_ruby_version = '>= 2.3.0'
+  spec.required_ruby_version = '>= 2.6.0'
 
-  spec.add_dependency 'rails', '>= 3.2'
+  spec.add_dependency 'rails', '>= 6.0'
   spec.add_development_dependency 'bundler', '>= 1.16'
   spec.add_development_dependency 'codeclimate-test-reporter', '~> 1.0'
   spec.add_development_dependency 'rake', '~> 12.3'
   spec.add_development_dependency 'rspec', '~> 3.8'
-  spec.add_development_dependency 'rubocop', '~> 0.60.0'
-  spec.add_development_dependency 'rubocop-rspec', '~> 1.30.0'
-  spec.add_development_dependency 'simplecov', '~> 0.16.1'
+  spec.add_development_dependency 'rubocop', '~> 1.27.0'
+  spec.add_development_dependency 'rubocop-rspec', '~> 2.0'
+  spec.add_development_dependency 'simplecov', '~> 0.16.1', '!= 0.18.0', '!= 0.18.1', '!= 0.18.2', '!= 0.18.3', '!= 0.18.4', '!= 0.18.5', '!= 0.19.0', '!= 0.19.1' # rubocop:disable Metrics/LineLength
+  spec.metadata['rubygems_mfa_required'] = 'true'
 end

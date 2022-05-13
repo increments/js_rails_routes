@@ -20,9 +20,10 @@ module JSRailsRoutes
 
       # @note Implementation for {JSRailsRoutes::Language::Base#generate}
       def handle_route_set(routes)
-        routes.each_with_object([self.class::PROCESS_FUNC]) do |route, lines|
+        set = routes.each_with_object([self.class::PROCESS_FUNC]) do |route, lines|
           lines.push(handle_route(route))
-        end.join("\n") + "\n"
+        end.join("\n")
+        "#{set}\n"
       end
 
       # @param route [JSRailsRoutes::Route]
@@ -56,7 +57,7 @@ module JSRailsRoutes
       # @param route_name [String]
       # @return [String]
       def function_name(route_name)
-        url_helper_name = route_name + '_path'
+        url_helper_name = "#{route_name}_path"
         config.camelize.nil? ? url_helper_name : url_helper_name.camelize(config.camelize)
       end
 
