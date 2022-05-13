@@ -6,6 +6,8 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [Unreleased]
 
+## [1.0.0] - 2022-05-13
+
 ### Changed
 - Remove codeclimate and execute rubocop in github actions
 - Update corporate name from Increments Inc. to Qiita Inc.
@@ -87,7 +89,8 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ### Added
 - Implement "js:rails:routes" task
 
-[Unreleased]: https://github.com/increments/js_rails_routes/compare/v0.10.1...HEAD
+[Unreleased]: https://github.com/increments/js_rails_routes/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/increments/js_rails_routes/compare/v0.10.1...v1.0.0
 [0.10.1]: https://github.com/increments/js_rails_routes/compare/v0.10.0...v0.10.1
 [0.10.0]: https://github.com/increments/js_rails_routes/compare/v0.9.0...v0.10.0
 [0.9.0]: https://github.com/increments/js_rails_routes/compare/v0.8.1...v0.9.0
