@@ -12,7 +12,7 @@ RSpec.describe JSRailsRoutes::Language::JavaScript do
       expect(subject).to eq <<~JAVASCRIPT
         function process(route, params, keys) {
           var query = [];
-          for (var param in params) if (params.hasOwnProperty(param)) {
+          for (var param in params) if (Object.prototype.hasOwnProperty.call(params, param)) {
             if (keys.indexOf(param) === -1) {
               query.push(param + "=" + encodeURIComponent(params[param]));
             }

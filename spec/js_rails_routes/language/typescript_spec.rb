@@ -15,7 +15,7 @@ RSpec.describe JSRailsRoutes::Language::TypeScript do
         function process(route: string, params: Record<string, Value> | undefined, keys: string[]): string {
           if (!params) return route
           var query: string[] = [];
-          for (var param in params) if (params.hasOwnProperty(param)) {
+          for (var param in params) if (Object.prototype.hasOwnProperty.call(params, param)) {
             if (keys.indexOf(param) === -1) {
               query.push(param + "=" + encodeURIComponent(params[param].toString()));
             }
