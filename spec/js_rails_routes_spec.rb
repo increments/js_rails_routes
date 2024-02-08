@@ -42,6 +42,7 @@ RSpec.describe JSRailsRoutes do
         subject
 
         expect(File.read(app_root.join('app/assets/javascripts/rails-routes.js'))).to eq <<~JAVASCRIPT
+          /* eslint-disable */
           // Don't edit manually. `rake #{task}` generates this file.
           #{JSRailsRoutes::Language::JavaScript::PROCESS_FUNC}
           export function blogs_path(params) { return process('/blogs', params, []); }
@@ -55,6 +56,7 @@ RSpec.describe JSRailsRoutes do
         JAVASCRIPT
 
         expect(File.read(app_root.join('app/assets/javascripts/admin-routes.js'))).to eq <<~JAVASCRIPT
+          /* eslint-disable */
           // Don't edit manually. `rake #{task}` generates this file.
           #{JSRailsRoutes::Language::JavaScript::PROCESS_FUNC}
           export function notes_path(params) { return process('/notes', params, []); }
@@ -94,6 +96,7 @@ RSpec.describe JSRailsRoutes do
         subject
 
         expect(File.read(app_root.join('app/assets/javascripts/rails-routes.ts'))).to eq <<~TYPESCRIPT
+          /* eslint-disable */
           // Don't edit manually. `rake #{task}` generates this file.
           #{JSRailsRoutes::Language::TypeScript::PROCESS_FUNC}
           export function blogs_path(params?: Record<string, Value>) { return process('/blogs', params, []); }
@@ -107,6 +110,7 @@ RSpec.describe JSRailsRoutes do
         TYPESCRIPT
 
         expect(File.read(app_root.join('app/assets/javascripts/admin-routes.ts'))).to eq <<~TYPESCRIPT
+          /* eslint-disable */
           // Don't edit manually. `rake #{task}` generates this file.
           #{JSRailsRoutes::Language::TypeScript::PROCESS_FUNC}
           export function notes_path(params?: Record<string, Value>) { return process('/notes', params, []); }

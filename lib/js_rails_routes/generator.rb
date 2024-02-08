@@ -17,7 +17,11 @@ module JSRailsRoutes
     def generate(task)
       builder.build.each do |artifact|
         file_name = File.join(config.output_dir, artifact.file_name)
-        file_body = "// Don't edit manually. `rake #{task}` generates this file.\n#{artifact.body}"
+        file_body = <<~FILE_BODY.chomp
+          /* eslint-disable */
+          // Don't edit manually. `rake #{task}` generates this file.
+          #{artifact.body}
+        FILE_BODY
         writable.write(file_name, file_body)
       end
     end
