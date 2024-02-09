@@ -6,6 +6,11 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [Unreleased]
 
+## [1.1.0] - 2024-02-09
+### Changed
+- Add eslint-disable comment not to affect eslint format
+- Update generated scripts to adopt eslint rule
+
 ## [1.0.0] - 2022-05-13
 
 ### Changed
