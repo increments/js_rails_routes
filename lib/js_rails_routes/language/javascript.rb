@@ -11,7 +11,13 @@ module JSRailsRoutes
           var query = [];
           for (var param in params) if (Object.prototype.hasOwnProperty.call(params, param)) {
             if (keys.indexOf(param) === -1) {
-              query.push(param + "=" + encodeURIComponent(params[param]));
+              if (Array.isArray(params[param])) {
+                for (var value of params[param] as Value[]) {
+                  query.push(param + "[]=" + encodeURIComponent(value));
+                }
+              } else {
+                query.push(param + "=" + encodeURIComponent(params[param]));
+              }
             }
           }
           return query.length ? route + "?" + query.join("&") : route;
