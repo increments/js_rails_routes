@@ -10,14 +10,20 @@ RSpec.describe JSRailsRoutes::Language::TypeScript do
 
     it 'returns a typescript function' do
       expect(subject).to eq <<~TYPESCRIPT
-        type Value = string | number
+        type Value = string | number | (string | number)[];
         type Params<Keys extends string> = { [key in Keys]: Value } & Record<string, Value>
         function process(route: string, params: Record<string, Value> | undefined, keys: string[]): string {
           if (!params) return route
           var query: string[] = [];
           for (var param in params) if (Object.prototype.hasOwnProperty.call(params, param)) {
             if (keys.indexOf(param) === -1) {
-              query.push(param + "=" + encodeURIComponent(params[param].toString()));
+              if (Array.isArray(params[param])) {
+                for (var value of params[param] as (string | number)[]) {
+                  query.push(param + "[]=" + encodeURIComponent(value.toString()));
+                }
+              } else {
+                query.push(param + "=" + encodeURIComponent(params[param].toString()));
+              }
             }
           }
           return query.length ? route + "?" + query.join("&") : route;
