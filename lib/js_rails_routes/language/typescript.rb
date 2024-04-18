@@ -7,7 +7,7 @@ module JSRailsRoutes
   module Language
     class TypeScript < JavaScript
       PROCESS_FUNC = <<~TYPESCRIPT
-        type Value = string | number | Value[]
+        type Value = string | number | (string | number)[];
         type Params<Keys extends string> = { [key in Keys]: Value } & Record<string, Value>
         function process(route: string, params: Record<string, Value> | undefined, keys: string[]): string {
           if (!params) return route
@@ -15,7 +15,7 @@ module JSRailsRoutes
           for (var param in params) if (Object.prototype.hasOwnProperty.call(params, param)) {
             if (keys.indexOf(param) === -1) {
               if (Array.isArray(params[param])) {
-                for (var value of params[param] as Value[]) {
+                for (var value of params[param] as (string | number)[]) {
                   query.push(param + "[]=" + encodeURIComponent(value.toString()));
                 }
               } else {
