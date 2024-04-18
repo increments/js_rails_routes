@@ -6,6 +6,10 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [Unreleased]
 
+## [1.2.0] - 2024-04-19
+### Added
+- Add support for parameters as Array
+
 ## [1.1.0] - 2024-02-09
 ### Changed
 - Add eslint-disable comment not to affect eslint format
@@ -94,7 +98,9 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ### Added
 - Implement "js:rails:routes" task
 
-[Unreleased]: https://github.com/increments/js_rails_routes/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/increments/js_rails_routes/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/increments/js_rails_routes/compare/v1.1.0...v1.2.0
+[1.1.0]: https://github.com/increments/js_rails_routes/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/increments/js_rails_routes/compare/v0.10.1...v1.0.0
 [0.10.1]: https://github.com/increments/js_rails_routes/compare/v0.10.0...v0.10.1
 [0.10.0]: https://github.com/increments/js_rails_routes/compare/v0.9.0...v0.10.0
