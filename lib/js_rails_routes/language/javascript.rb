@@ -12,7 +12,7 @@ module JSRailsRoutes
           for (var param in params) if (Object.prototype.hasOwnProperty.call(params, param)) {
             if (keys.indexOf(param) === -1) {
               if (Array.isArray(params[param])) {
-                for (var value of params[param] as Value[]) {
+                for (var value of params[param]) {
                   query.push(param + "[]=" + encodeURIComponent(value));
                 }
               } else {
