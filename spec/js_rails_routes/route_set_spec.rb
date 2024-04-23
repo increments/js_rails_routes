@@ -11,6 +11,9 @@ RSpec.describe JSRailsRoutes::RouteSet do
       routes.draw do
         get '/articles' => 'articles#index'
         get '/users' => 'users#index'
+        scope '(/:locale)' do
+          get '/users' => 'users#index'
+        end
       end
     end
   end
@@ -48,6 +51,7 @@ RSpec.describe JSRailsRoutes::RouteSet do
       it "doesn't include the excluded route" do
         expect(subject).to include be_a(JSRailsRoutes::Route).and(have_attributes(name: /articles/))
         expect(subject).not_to include be_a(JSRailsRoutes::Route).and(have_attributes(name: /users/))
+        expect(subject).not_to include be_a(JSRailsRoutes::Route).and(have_attributes(name: /:locale/))
       end
     end
   end

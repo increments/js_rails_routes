@@ -36,6 +36,9 @@ RSpec.describe JSRailsRoutes::Language::JavaScript do
       rails_route_set = ActionDispatch::Routing::RouteSet.new.tap do |routes|
         routes.draw do
           resources :articles
+          scope '(/:locale)' do
+            get '/users' => 'users#index'
+          end
         end
       end
       JSRailsRoutes::RouteSet.new('Rails', rails_route_set)
@@ -49,6 +52,7 @@ RSpec.describe JSRailsRoutes::Language::JavaScript do
           export function new_article_path(params) { return process('/articles/new', params, []); }
           export function edit_article_path(params) { return process('/articles/' + params.id + '/edit', params, ['id']); }
           export function article_path(params) { return process('/articles/' + params.id + '', params, ['id']); }
+          export function users_path(params) { return process('/' + params.locale + '/users', params, ['locale']); }
         JAVASCRIPT
       end
     end
@@ -67,6 +71,7 @@ RSpec.describe JSRailsRoutes::Language::JavaScript do
           export function newArticlePath(params) { return process('/articles/new', params, []); }
           export function editArticlePath(params) { return process('/articles/' + params.id + '/edit', params, ['id']); }
           export function articlePath(params) { return process('/articles/' + params.id + '', params, ['id']); }
+          export function usersPath(params) { return process('/' + params.locale + '/users', params, ['locale']); }
         JAVASCRIPT
       end
     end
@@ -85,6 +90,7 @@ RSpec.describe JSRailsRoutes::Language::JavaScript do
           export function NewArticlePath(params) { return process('/articles/new', params, []); }
           export function EditArticlePath(params) { return process('/articles/' + params.Id + '/edit', params, ['Id']); }
           export function ArticlePath(params) { return process('/articles/' + params.Id + '', params, ['Id']); }
+          export function UsersPath(params) { return process('/' + params.Locale + '/users', params, ['Locale']); }
         JAVASCRIPT
       end
     end
@@ -117,6 +123,7 @@ RSpec.describe JSRailsRoutes::Language::JavaScript do
           export function articles_path(params) { return process('/articles', params, []); }
           export function edit_article_path(params) { return process('/articles/' + params.id + '/edit', params, ['id']); }
           export function article_path(params) { return process('/articles/' + params.id + '', params, ['id']); }
+          export function users_path(params) { return process('/' + params.locale + '/users', params, ['locale']); }
         JAVASCRIPT
       end
     end
@@ -149,6 +156,7 @@ RSpec.describe JSRailsRoutes::Language::JavaScript do
           export function articles_path(params) { return process('/articles', params, []); }
           export function edit_article_path(params) { return process('/articles/' + params.id + '/edit', params, ['id']); }
           export function article_path(params) { return process('/articles/' + params.id + '', params, ['id']); }
+          export function users_path(params) { return process('/' + params.locale + '/users', params, ['locale']); }
         JAVASCRIPT
       end
     end
