@@ -1,0 +1,6 @@
+# package-ecosystem: bundler, directories: /
+/Gemfile @increments/shared-dev-group
+/Gemfile.lock @increments/shared-dev-group
+
+# package-ecosystem: github-actions, directories: /
+/.github/workflows @increments/shared-dev-group
