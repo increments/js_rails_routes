@@ -27,14 +27,14 @@ jobs:
     steps:
       - name: Get branch names
         id: branch-name
-        uses: tj-actions/branch-names@v7.0.7
-      - uses: actions/checkout@v2
-      - uses: ruby/setup-ruby@v1
+        uses: tj-actions/branch-names@6c999acf206f5561e19f46301bb310e9e70d8815 # v7.0.7
+      - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
+      - uses: ruby/setup-ruby@13e7a03dc3ac6c3798f4570bfead2aed4d96abfb # v1.244.0
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
       - name: Test & publish code coverage
-        uses: paambaati/codeclimate-action@v2.7.5
+        uses: paambaati/codeclimate-action@7bcf9e73c0ee77d178e72c0ec69f1a99c1afc1f3 # v2.7.5
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
           GIT_BRANCH: ${{ steps.branch-name.outputs.current_branch }}
