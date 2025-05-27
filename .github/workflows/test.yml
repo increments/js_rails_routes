@@ -33,6 +33,9 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
+      - run: |
+          bundle exec rake
+        if: matrix.os == 'macos-latest'
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@f429536ee076d758a24705203199548125a28ca7 # v9.0.0
         env:
@@ -41,3 +44,4 @@ jobs:
           GIT_COMMIT_SHA: ${{ github.sha }}
         with:
           coverageCommand: bundle exec rake
+        if: matrix.os != 'macos-latest'
