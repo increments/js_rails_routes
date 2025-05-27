@@ -33,11 +33,15 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
+      - run: |
+          bundle exec rake
+        if: matrix.os == 'macos-latest'
       - name: Test & publish code coverage
-        uses: paambaati/codeclimate-action@7bcf9e73c0ee77d178e72c0ec69f1a99c1afc1f3 # v2.7.5
+        uses: paambaati/codeclimate-action@f429536ee076d758a24705203199548125a28ca7 # v9.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
           GIT_BRANCH: ${{ steps.branch-name.outputs.current_branch }}
           GIT_COMMIT_SHA: ${{ github.sha }}
         with:
           coverageCommand: bundle exec rake
+        if: matrix.os != 'macos-latest'
