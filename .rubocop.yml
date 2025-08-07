@@ -10,7 +10,7 @@ AllCops:
 Style/Documentation:
   Enabled: false
 
-Layout/BlockLength:
+Metrics/BlockLength:
   Exclude:
   - 'spec/**/*'
 
