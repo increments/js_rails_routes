@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe JSRailsRoutes::Generator do
-  subject(:generator) { described_class.new(builder, writable: writable) }
+  subject(:generator) { described_class.new(builder, writable:) }
 
   include_context 'run in a sandbox'
 

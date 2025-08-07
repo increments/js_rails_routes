@@ -32,8 +32,8 @@ RSpec.describe JSRailsRoutes::Builder do
 
     it 'returns an array of artifacts' do
       expect(subject).to contain_exactly(
-        an_object_having_attributes(engine_name: rails_route_set.name, body: body),
-        an_object_having_attributes(engine_name: engine_route_set.name, body: body)
+        an_object_having_attributes(engine_name: rails_route_set.name, body:),
+        an_object_having_attributes(engine_name: engine_route_set.name, body:)
       )
       expect(language).to have_received(:handle_route_set).twice
     end
