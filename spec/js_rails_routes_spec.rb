@@ -72,7 +72,7 @@ RSpec.describe JSRailsRoutes do
     end
 
     context 'without target config' do
-      include_examples 'javascript target'
+      it_behaves_like 'javascript target'
     end
 
     context 'with target="js"' do
@@ -82,7 +82,7 @@ RSpec.describe JSRailsRoutes do
         end
       end
 
-      include_examples 'javascript target'
+      it_behaves_like 'javascript target'
     end
 
     context 'with target="ts"' do
