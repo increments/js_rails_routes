@@ -8,7 +8,7 @@ require 'js_rails_routes/language/javascript'
 require 'js_rails_routes/language/typescript'
 
 module JSRailsRoutes
-  PARAM_REGEXP = %r{:(.*?)(/|$)}.freeze
+  PARAM_REGEXP = %r{:(.*?)(/|$)}
 
   module_function
 
