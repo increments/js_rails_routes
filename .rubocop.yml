@@ -44,5 +44,7 @@ RSpec/ContextWording:
     - if
     - and
 
-RSpec/FilePath:
-  Enabled: false
+RSpec/SpecFilePathFormat:
+  CustomTransform:
+    JavaScript: javascript
+    TypeScript: typescript
