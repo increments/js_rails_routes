@@ -7,15 +7,15 @@ AllCops:
   TargetRubyVersion: 3.2
   NewCops: enable
 
-Metrics/LineLength:
-  Max: 120
+Style/Documentation:
+  Enabled: false
 
-Metrics/BlockLength:
+Layout/BlockLength:
   Exclude:
   - 'spec/**/*'
 
-Style/Documentation:
-  Enabled: false
+Layout/LineLength:
+  Max: 120
 
 Layout/MultilineMethodCallIndentation:
   Exclude:
