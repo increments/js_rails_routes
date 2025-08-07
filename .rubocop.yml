@@ -4,18 +4,18 @@ require:
   - rubocop-rspec
 
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.2
   NewCops: enable
-
-Metrics/LineLength:
-  Max: 120
-
-Metrics/BlockLength:
-  Exclude:
-  - 'spec/**/*'
 
 Style/Documentation:
   Enabled: false
+
+Layout/BlockLength:
+  Exclude:
+  - 'spec/**/*'
+
+Layout/LineLength:
+  Max: 120
 
 Layout/MultilineMethodCallIndentation:
   Exclude:
