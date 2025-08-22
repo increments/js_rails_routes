@@ -5,7 +5,7 @@ gemspec
 
 gem 'bundler', '>= 1.16'
 gem 'pry'
-gem 'rake', '~> 12.3'
+gem 'rake', '~> 13.3'
 gem 'rspec', '~> 3.8'
 gem 'rubocop', '~> 1.79.2'
 gem 'rubocop-rspec', '~> 3.0'
