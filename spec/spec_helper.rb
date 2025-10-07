@@ -3,7 +3,16 @@
 $LOAD_PATH << File.expand_path('../lib', __dir__)
 
 require 'simplecov'
-SimpleCov.start
+require 'simplecov_json_formatter'
+
+SimpleCov.start do
+  SimpleCov.formatters = [
+    SimpleCov::Formatter::JSONFormatter,
+    SimpleCov::Formatter::HTMLFormatter
+  ]
+
+  add_filter '/spec/'
+end
 
 require 'rails/all'
 require 'js_rails_routes'
