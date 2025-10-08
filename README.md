@@ -3,6 +3,8 @@
 [![Gem](https://img.shields.io/gem/v/js_rails_routes.svg?maxAge=2592000)](https://rubygems.org/gems/js_rails_routes)
 ![Build Status](https://github.com/increments/js_rails_routes/actions/workflows/test.yml/badge.svg?branch=master)
 [![license](https://img.shields.io/github/license/increments/js_rails_routes.svg?maxAge=2592000)](https://github.com/increments/js_rails_routes/blob/master/LICENSE)
+[![Maintainability](https://qlty.sh/gh/increments/projects/js_rails_routes/maintainability.svg)](https://qlty.sh/gh/increments/projects/js_rails_routes)
+[![Code Coverage](https://qlty.sh/gh/increments/projects/js_rails_routes/coverage.svg)](https://qlty.sh/gh/increments/projects/js_rails_routes)
 
 Generate a ES6 module that contains Rails routes.
 
